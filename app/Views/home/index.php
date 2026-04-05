@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPENAB // ALLOCATION_SYSTEM</title>
+    <title>SIPENAB // SISTEM_ALOKASI</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
@@ -55,6 +55,8 @@
             letter-spacing: -1px;
         }
 
+        .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        
         .nav-links a {
             color: var(--ink);
             text-decoration: none;
@@ -83,7 +85,7 @@
 
         .hero-title {
             font-family: var(--display);
-            font-size: clamp(6rem, 15vw, 16rem);
+            font-size: clamp(4rem, 15vw, 16rem);
             line-height: 0.8;
             text-transform: uppercase;
             margin: 0;
@@ -91,7 +93,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2vw, 1.5rem);
             font-weight: 800;
             text-transform: uppercase;
             max-width: 600px;
@@ -105,6 +107,7 @@
             display: flex;
             gap: 2rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -127,14 +130,9 @@
             box-shadow: 8px 8px 0px var(--accent);
         }
 
-        .btn:active {
-            transform: translate(12px, 12px);
-            box-shadow: 0px 0px 0px var(--accent);
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-top: 6rem;
             border-top: 4px solid var(--ink);
@@ -175,44 +173,51 @@
             pointer-events: none;
         }
 
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+            main { padding: 2rem; }
+            .hero-title { line-height: 0.9; }
+            .btn { width: 100%; text-align: center; }
+        }
+
         .reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
 <body>
     <header class="reveal">
-        <div class="logo">SIPENAB<br><span style="font-size: 1rem; color: var(--accent); font-family: var(--mono);">SYSTEM_CORE</span></div>
+        <div class="logo">SIPENAB<br><span style="font-size: 1rem; color: var(--accent); font-family: var(--mono);">INTI_SISTEM</span></div>
         <div class="nav-links">
-            <a href="<?= site_url('login') ?>">Access_Portal</a>
-            <a href="https://github.com/Elmanda1/SIPENAB" target="_blank">Documentation</a>
+            <a href="<?= site_url('about') ?>">Metodologi</a>
+            <a href="<?= site_url('login') ?>">Portal_Akses</a>
         </div>
     </header>
 
     <main>
-        <div class="stamp">ALGORITHM_READY</div>
+        <div class="stamp">ALGORITMA_SIAP</div>
         
-        <h1 class="hero-title reveal">Scholarship<br>Allocation<br><span style="color: var(--accent);">Engine</span></h1>
+        <h1 class="hero-title reveal">Mesin<br>Alokasi<br><span style="color: var(--accent);">Beasiswa</span></h1>
         
         <div class="hero-subtitle reveal">
-            Systematic decision support utilizing Simple Additive Weighting (SAW) for deterministic candidate evaluation.
+            Sistem pendukung keputusan sistematis menggunakan Simple Additive Weighting (SAW) untuk evaluasi kandidat yang deterministik.
         </div>
 
         <div class="cta-container reveal">
-            <a href="<?= site_url('login') ?>" class="btn">Initialize_Session</a>
-            <div style="font-size: 0.8rem; font-weight: 800; color: #666;">> SECURE_CONNECTION_REQUIRED<br>> ROLE_BASED_ACCESS_ENFORCED</div>
+            <a href="<?= site_url('login') ?>" class="btn">Inisialisasi_Sesi</a>
+            <div style="font-size: 0.8rem; font-weight: 800; color: #666;">> KONEKSI_AMAN_DIBUTUHKAN<br>> AKSES_BERBASIS_PERAN</div>
         </div>
 
         <div class="stats-grid reveal">
             <div class="stat-item">
                 <div class="stat-value">SAW</div>
-                <div class="stat-label">Primary_Algorithm</div>
+                <div class="stat-label">Algoritma_Utama</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value">1.0</div>
-                <div class="stat-label">System_Version</div>
+                <div class="stat-label">Versi_Sistem</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value">RBAC</div>
-                <div class="stat-label">Security_Protocol</div>
+                <div class="stat-label">Protokol_Keamanan</div>
             </div>
         </div>
     </main>

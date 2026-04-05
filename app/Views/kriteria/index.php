@@ -1,27 +1,27 @@
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>
-<div class="stamp reveal" style="top: 10%; right: 10%;">REGISTRY</div>
+<div class="stamp reveal" style="top: 10%; right: 10%;">REGISTRI</div>
 
 <header class="reveal" style="margin-bottom: 4rem;">
-    <h1 style="margin: 0; font-size: 8rem; line-height: 0.8;">Criteria<br>Vault</h1>
-    <div style="margin-top: 1rem; border-top: 8px solid var(--ink); padding-top: 1rem; display: flex; justify-content: space-between; align-items: flex-start;">
+    <h1 style="margin: 0;">Brankas<br>Kriteria</h1>
+    <div style="margin-top: 1rem; border-top: 8px solid var(--ink); padding-top: 1rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
         <div style="font-weight: 800; text-transform: uppercase; font-size: 1.2rem;">
-            Database Management // Weight Configuration
+            Manajemen Database // Konfigurasi Bobot
         </div>
-        <button onclick="location.href='<?= site_url('kriteria/new') ?>'" class="btn">Define_New_Metric</button>
+        <a href="<?= site_url('kriteria/new') ?>" class="btn">Tentukan_Metrik_Baru</a>
     </div>
 </header>
 
-<div class="brutalist-grid reveal" style="padding: 0;">
+<div class="table-wrapper reveal">
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr style="background: var(--ink); color: var(--surface);">
-                <th style="padding: 1rem; text-align: left; width: 100px;">CODE</th>
-                <th style="padding: 1rem; text-align: left;">METRIC_NAME</th>
-                <th style="padding: 1rem; text-align: center;">WEIGHT</th>
-                <th style="padding: 1rem; text-align: center;">TYPE</th>
-                <th style="padding: 1rem; text-align: right;">OPERATIONS</th>
+                <th style="padding: 1rem; text-align: left; width: 100px;">KODE</th>
+                <th style="padding: 1rem; text-align: left;">NAMA_METRIK</th>
+                <th style="padding: 1rem; text-align: center;">BOBOT</th>
+                <th style="padding: 1rem; text-align: center;">TIPE</th>
+                <th style="padding: 1rem; text-align: right;">OPERASI</th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +43,7 @@
                 </td>
                 <td style="padding: 2rem 1rem; text-align: right;">
                     <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-                        <a href="<?= site_url('kriteria/delete/'.$k['id']) ?>" style="background: var(--accent); color: var(--ink); text-decoration: none; border: 2px solid var(--ink); padding: 0.5rem 1rem; font-weight: 800; font-size: 0.7rem;">[ PURGE ]</a>
+                        <a href="<?= site_url('kriteria/delete/'.$k['id']) ?>" style="background: var(--accent); color: var(--ink); text-decoration: none; border: 2px solid var(--ink); padding: 0.5rem 1rem; font-weight: 800; font-size: 0.7rem;" onclick="return confirm('Hapus kriteria?')">[ PURGE ]</a>
                     </div>
                 </td>
             </tr>
@@ -53,7 +53,7 @@
 </div>
 
 <footer class="reveal" style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 0.8rem;">
-    <div>LOADED_METRICS: <?= count($kriteria) ?></div>
-    <div>ALGORITHM: SAW_WEIGHTS_READY</div>
+    <div>METRIK_TERMUAT: <?= count($kriteria) ?></div>
+    <div>ALGORITMA: BOBOT_SAW_SIAP</div>
 </footer>
 <?= $this->endSection() ?>

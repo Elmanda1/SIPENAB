@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('about', 'Home::about');
 
 // Auth Routes
 $routes->get('login', 'Auth::index');
@@ -15,10 +16,14 @@ $routes->get('logout', 'Auth::logout');
 // Protected Routes
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('dashboard', 'Dashboard::index');
+    $routes->get('dashboard/report', 'Dashboard::report');
     
     // Mahasiswa UI
     $routes->get('mahasiswa/new', 'Mahasiswa::new');
     $routes->get('mahasiswa', 'Mahasiswa::index');
+    $routes->get('mahasiswa/(:num)', 'Mahasiswa::show/$1');
+    $routes->get('mahasiswa/edit/(:num)', 'Mahasiswa::edit/$1');
+    $routes->post('mahasiswa/update/(:num)', 'Mahasiswa::update/$1');
     $routes->post('mahasiswa', 'Mahasiswa::create');
     $routes->get('mahasiswa/delete/(:num)', 'Mahasiswa::delete/$1');
 

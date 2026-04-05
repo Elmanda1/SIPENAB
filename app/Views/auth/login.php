@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPENAB // AUTHORIZATION_REQUIRED</title>
+    <title>SIPENAB // OTORISASI_DIBUTUHKAN</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
@@ -38,12 +38,13 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            padding: 2rem;
         }
 
         .login-box {
             width: 100%;
             max-width: 450px;
-            padding: 3rem;
+            padding: clamp(1.5rem, 5vw, 3rem);
             border: 4px solid var(--ink);
             background: var(--surface);
             position: relative;
@@ -52,7 +53,7 @@
 
         h1 {
             font-family: var(--display);
-            font-size: 4rem;
+            font-size: clamp(3rem, 10vw, 4rem);
             margin: 0 0 2rem 0;
             line-height: 0.8;
             text-transform: uppercase;
@@ -114,25 +115,30 @@
             letter-spacing: 1px;
         }
 
+        @media (max-width: 480px) {
+            .login-box { box-shadow: 10px 10px 0px var(--accent); }
+            .footer-tag { bottom: -30px; font-size: 0.6rem; }
+        }
+
         .reveal { opacity: 0; transform: translateY(20px); }
     </style>
 </head>
 <body>
     <div class="login-box reveal">
-        <h1 class="reveal">Auth<br>Access</h1>
+        <h1 class="reveal">Akses<br>Otoritas</h1>
         
         <form action="<?= site_url('login') ?>" method="POST">
             <div class="input-group reveal">
-                <label>Identifier</label>
+                <label>Identitas_Pengguna</label>
                 <input type="text" name="username" placeholder="USERNAME" required autofocus>
             </div>
             
             <div class="input-group reveal">
-                <label>Security_Key</label>
+                <label>Kunci_Keamanan</label>
                 <input type="password" name="password" placeholder="PASSWORD" required>
             </div>
 
-            <button type="submit" class="btn reveal">Initialize_Session</button>
+            <button type="submit" class="btn reveal">Inisialisasi_Sesi</button>
         </form>
 
         <div class="footer-tag">SIPENAB_v1.0 // AUTHORIZATION_GATEWAY</div>

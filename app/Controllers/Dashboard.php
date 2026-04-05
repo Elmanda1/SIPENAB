@@ -23,4 +23,15 @@ class Dashboard extends BaseController
 
         return view('dashboard/ranking', $data);
     }
+
+    public function report()
+    {
+        $hasilModel = new HasilModel();
+        $data['rankings'] = $hasilModel->select('hasil.*, mahasiswa.nama, mahasiswa.nim')
+            ->join('mahasiswa', 'mahasiswa.id = hasil.mahasiswa_id')
+            ->orderBy('ranking', 'ASC')
+            ->findAll();
+
+        return view('dashboard/report', $data);
+    }
 }

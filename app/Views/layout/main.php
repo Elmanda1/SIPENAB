@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPENAB // <?= $title ?? 'SYSTEM' ?></title>
+    <title>SIPENAB // <?= $title ?? 'SISTEM' ?></title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
@@ -12,7 +12,7 @@
             --bg: #f0f0f0;
             --surface: #ffffff;
             --ink: #000000;
-            --accent: #ff3e00; /* Brutalist orange-red */
+            --accent: #ff3e00;
             --border: #000000;
             --mono: 'JetBrains Mono', monospace;
             --display: 'Staatliches', cursive;
@@ -20,7 +20,6 @@
 
         * { box-sizing: border-box; }
         
-        /* Grainy Paper Texture Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -37,11 +36,11 @@
             font-family: var(--mono);
             margin: 0;
             display: flex;
+            flex-direction: row;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Sidebar / ID Strip */
         aside {
             width: 80px;
             background: var(--ink);
@@ -52,6 +51,8 @@
             justify-content: space-between;
             padding: 2rem 0;
             border-right: 4px solid var(--ink);
+            flex-shrink: 0;
+            z-index: 100;
         }
 
         .vertical-text {
@@ -65,21 +66,24 @@
 
         main {
             flex: 1;
-            padding: 4rem;
+            padding: 4rem 2rem;
             position: relative;
+            min-width: 0;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         nav {
             position: absolute;
             top: 2rem;
-            right: 4rem;
+            right: 2rem;
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         nav a {
@@ -87,22 +91,88 @@
             text-decoration: none;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border-bottom: 3px solid transparent;
             transition: border-color 0.2s;
+            white-space: nowrap;
         }
 
-        nav a:hover {
-            border-color: var(--accent);
-        }
+        nav a:hover { border-color: var(--accent); }
 
         h1 {
             font-family: var(--display);
-            font-size: 6rem;
+            font-size: clamp(3rem, 10vw, 6rem);
             line-height: 0.9;
             margin: 0 0 2rem 0;
             text-transform: uppercase;
             letter-spacing: -2px;
+        }
+
+        .btn {
+            background: var(--ink);
+            color: var(--surface);
+            border: none;
+            padding: 1rem 1.5rem;
+            font-family: var(--mono);
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px var(--accent);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside {
+                width: 100%;
+                height: 60px;
+                flex-direction: row;
+                padding: 0 2rem;
+                border-right: none;
+                border-bottom: 4px solid var(--ink);
+            }
+            .vertical-text {
+                writing-mode: horizontal-tb;
+                font-size: 0.6rem;
+            }
+            main { padding: 6rem 1.5rem 4rem 1.5rem; }
+            nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                background: var(--surface);
+                padding: 1rem;
+                justify-content: center;
+                border-top: 4px solid var(--ink);
+                z-index: 1000;
+                gap: 1rem;
+            }
+            h1 { font-size: 4rem; }
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 2rem;
+            border: 4px solid var(--ink);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .brutalist-grid {
+            border: 4px solid var(--ink);
+            background: var(--surface);
+            padding: 1.5rem;
+            box-shadow: 10px 10px 0px var(--ink);
+            margin-bottom: 2rem;
         }
 
         .stamp {
@@ -119,50 +189,22 @@
             border-radius: 4px;
         }
 
-        /* Brutalist Buttons */
-        .btn {
-            background: var(--ink);
-            color: var(--surface);
-            border: none;
-            padding: 1rem 2rem;
-            font-family: var(--mono);
-            font-weight: 800;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 8px 8px 0px var(--accent);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-
-        .btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: 4px 4px 0px var(--accent);
-        }
-
-        /* Grid Patterns */
-        .brutalist-grid {
-            border: 4px solid var(--ink);
-            background: var(--surface);
-            padding: 2rem;
-            box-shadow: 12px 12px 0px var(--ink);
-        }
-
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(30px); }
+        .reveal { opacity: 0; transform: translateY(20px); }
     </style>
 </head>
 <body>
     <aside>
-        <div class="vertical-text">PNJ_SYSTEM_CORE</div>
+        <div class="vertical-text">INTI_SISTEM_PNJ</div>
         <div class="vertical-text" style="color: var(--accent);">SIPENAB_v1.0</div>
     </aside>
 
     <main>
         <nav>
-            <a href="<?= site_url('dashboard') ?>">Results</a>
-            <a href="<?= site_url('mahasiswa') ?>">Students</a>
-            <a href="<?= site_url('kriteria') ?>">Criteria</a>
-            <a href="<?= site_url('penilaian') ?>">Evaluation</a>
-            <a href="<?= site_url('logout') ?>">Exit</a>
+            <a href="<?= site_url('dashboard') ?>">Hasil</a>
+            <a href="<?= site_url('mahasiswa') ?>">Mahasiswa</a>
+            <a href="<?= site_url('kriteria') ?>">Kriteria</a>
+            <a href="<?= site_url('penilaian') ?>">Penilaian</a>
+            <a href="<?= site_url('logout') ?>">Keluar</a>
         </nav>
 
         <div class="container">
@@ -171,13 +213,12 @@
     </main>
 
     <script>
-        // Entrance Animation Sequence
         window.addEventListener('DOMContentLoaded', () => {
             gsap.to('.reveal', {
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
-                stagger: 0.2,
+                stagger: 0.1,
                 ease: 'power4.out'
             });
         });
