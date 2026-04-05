@@ -35,4 +35,11 @@ class Mahasiswa extends BaseController
 
         return redirect()->to('mahasiswa')->with('message', 'Record committed successfully');
     }
+
+    public function delete($id = null)
+    {
+        $model = new MahasiswaModel();
+        $model->delete($id);
+        return redirect()->to('mahasiswa')->with('message', 'Record purged successfully');
+    }
 }

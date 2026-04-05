@@ -161,6 +161,7 @@
             <a href="<?= site_url('dashboard') ?>">Results</a>
             <a href="<?= site_url('mahasiswa') ?>">Students</a>
             <a href="<?= site_url('kriteria') ?>">Criteria</a>
+            <a href="<?= site_url('penilaian') ?>">Evaluation</a>
             <a href="<?= site_url('logout') ?>">Exit</a>
         </nav>
 
