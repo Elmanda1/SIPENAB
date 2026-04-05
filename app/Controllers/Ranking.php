@@ -60,7 +60,7 @@ class Ranking extends BaseController
         $rankedResults = $calculator->rank($scores);
 
         // 6. Save/Update Results
-        $hasilModel->where('1=1')->delete(); // Clear old results
+        $hasilModel->truncate(); // Clear old results
         foreach ($rankedResults as $res) {
             $hasilModel->insert([
                 'mahasiswa_id' => $res['id'],
