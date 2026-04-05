@@ -9,6 +9,14 @@ class Auth extends BaseController
 {
     use ResponseTrait;
 
+    public function index()
+    {
+        if (session()->get('isLoggedIn')) {
+            return redirect()->to('dashboard');
+        }
+        return view('auth/login');
+    }
+
     public function login()
     {
         $username = $this->request->getPost('username');
