@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->post('mahasiswa', 'Mahasiswa::create');
+$routes->get('ranking/calculate', 'Ranking::calculate');
