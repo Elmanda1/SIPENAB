@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('dashboard', 'Dashboard::index');
 
 // Auth Routes
 $routes->post('login', 'Auth::login');
