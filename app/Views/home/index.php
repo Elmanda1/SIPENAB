@@ -1,237 +1,311 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPENAB // SISTEM_ALOKASI</title>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
+<?= $this->extend('layout/main') ?>
 
-        :root {
-            --bg: #f0f0f0;
-            --surface: #ffffff;
-            --ink: #000000;
-            --accent: #ff3e00;
-            --mono: 'JetBrains Mono', monospace;
-            --display: 'Staatliches', cursive;
-        }
+<?= $this->section('content') ?>
 
-        * { box-sizing: border-box; }
-        
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: .05;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
+<style>
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 4rem;
+        padding-bottom: 6rem;
+    }
 
-        body {
-            background: var(--bg);
-            color: var(--ink);
-            font-family: var(--mono);
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+    .hero-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        background: var(--glass-bg);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--glass-border);
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        header {
-            padding: 2rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--ink);
-        }
+    .hero h1 {
+        font-size: clamp(3rem, 6vw, 5rem);
+        margin-bottom: 1.5rem;
+        max-width: 900px;
+        letter-spacing: -1.5px;
+    }
 
-        .logo {
-            font-family: var(--display);
-            font-size: 2.5rem;
-            line-height: 1;
-            letter-spacing: -1px;
-        }
+    .hero p {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: var(--text-muted);
+        max-width: 700px;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+    }
 
-        .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-        
-        .nav-links a {
-            color: var(--ink);
-            text-decoration: none;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-        }
+    /* --- STATS --- */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
 
-        .nav-links a:hover {
-            border-color: var(--ink);
-            background: var(--ink);
-            color: var(--surface);
-        }
+    .stat-card {
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
 
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
-            position: relative;
-        }
+    .stat-number {
+        font-family: 'Outfit', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
 
-        .hero-title {
-            font-family: var(--display);
-            font-size: clamp(4rem, 15vw, 16rem);
-            line-height: 0.8;
-            text-transform: uppercase;
-            margin: 0;
-            letter-spacing: -4px;
-        }
+    /* --- ABOUT / FEATURES --- */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-muted);
+        margin-bottom: 4rem;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin-inline: auto;
+    }
 
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            max-width: 600px;
-            margin-top: 2rem;
-            border-left: 8px solid var(--accent);
-            padding-left: 1rem;
-        }
+    .feature-card {
+        padding: 2.5rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .cta-container {
-            margin-top: 4rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        width: 60px; height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
+    }
 
-        .btn {
-            background: var(--ink);
-            color: var(--surface);
-            border: none;
-            padding: 1.5rem 3rem;
-            font-family: var(--display);
-            font-size: 2rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 12px 12px 0px var(--accent);
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
+    .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
 
-        .btn:hover {
-            transform: translate(4px, 4px);
-            box-shadow: 8px 8px 0px var(--accent);
-        }
+    .feature-card p {
+        color: var(--text-muted);
+        line-height: 1.6;
+        flex-grow: 1;
+    }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 6rem;
-            border-top: 4px solid var(--ink);
-            padding-top: 2rem;
-        }
+    /* --- TESTIMONIALS --- */
+    .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
 
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
+    .review-card {
+        padding: 2rem;
+        position: relative;
+    }
+    
+    .review-text {
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+    }
 
-        .stat-value {
-            font-family: var(--display);
-            font-size: 4rem;
-            color: var(--accent);
-            line-height: 1;
-        }
+    .reviewer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
 
-        .stat-label {
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
 
-        .stamp {
-            position: absolute;
-            top: 20%;
-            right: 10%;
-            border: 6px solid var(--ink);
-            color: var(--ink);
-            padding: 1rem 2rem;
-            font-family: var(--display);
-            font-size: 3rem;
-            text-transform: uppercase;
-            transform: rotate(15deg);
-            opacity: 0.1;
-            pointer-events: none;
-        }
+    .reviewer-info h4 { margin-bottom: 0.2rem; }
+    .reviewer-info p { font-size: 0.85rem; color: var(--text-muted); }
 
-        @media (max-width: 768px) {
-            header { padding: 1.5rem 2rem; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-            main { padding: 2rem; }
-            .hero-title { line-height: 0.9; }
-            .btn { width: 100%; text-align: center; }
-        }
+    /* --- CTA --- */
+    .cta-section {
+        text-align: center;
+        padding: 6rem 2rem;
+        margin: 6rem auto 2rem auto;
+        max-width: 1000px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-section h2 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
 
-        .reveal { opacity: 0; transform: translateY(40px); }
-    </style>
-</head>
-<body>
-    <header class="reveal">
-        <div class="logo">SIPENAB<br><span style="font-size: 1rem; color: var(--accent); font-family: var(--mono);">INTI_SISTEM</span></div>
-        <div class="nav-links">
-            <a href="<?= site_url('about') ?>">Metodologi</a>
-            <a href="<?= site_url('login') ?>">Portal_Akses</a>
+<!-- Bagian Hero -->
+<section class="hero">
+    <div class="hero-badge">Sistem Pendukung Keputusan</div>
+    <h1>Seleksi Beasiswa Berbasis Data</h1>
+    <p>Memberdayakan perguruan tinggi untuk mengalokasikan beasiswa secara adil, akurat, dan objektif menggunakan algoritma Simple Additive Weighting (SAW). Tidak ada lagi kesalahan manual dan ketidakadilan.</p>
+    <div>
+        <a href="<?= site_url('login') ?>" class="btn btn-primary"><i class="ti ti-login"></i> Masuk ke Dashboard</a>
+        <a href="#fitur" class="btn btn-glass"><i class="ti ti-arrow-down"></i> Pelajari Lebih Lanjut</a>
+    </div>
+</section>
+
+<!-- Bagian Statistik -->
+<section id="statistik" style="margin-top: 4rem;">
+    <div class="stats-grid">
+        <div class="stat-card glass">
+            <div class="stat-number" data-target="4">0</div>
+            <div class="stat-label">Kriteria Evaluasi Utama</div>
         </div>
-    </header>
-
-    <main>
-        <div class="stamp">ALGORITMA_SIAP</div>
-        
-        <h1 class="hero-title reveal">Mesin<br>Alokasi<br><span style="color: var(--accent);">Beasiswa</span></h1>
-        
-        <div class="hero-subtitle reveal">
-            Sistem pendukung keputusan sistematis menggunakan Simple Additive Weighting (SAW) untuk evaluasi kandidat yang deterministik.
+        <div class="stat-card glass">
+            <div class="stat-number" data-target="100">0</div>
+            <span style="font-size: 2rem; color: var(--accent); font-weight: bold; position: absolute; margin-top: -65px; margin-left: 55px;">%</span>
+            <div class="stat-label">Akurasi Objektif</div>
         </div>
-
-        <div class="cta-container reveal">
-            <a href="<?= site_url('login') ?>" class="btn">Inisialisasi_Sesi</a>
-            <div style="font-size: 0.8rem; font-weight: 800; color: #666;">> KONEKSI_AMAN_DIBUTUHKAN<br>> AKSES_BERBASIS_PERAN</div>
+        <div class="stat-card glass" style="position:relative;">
+            <div class="stat-number" data-target="24">0</div>
+            <span style="font-size: 2rem; color: var(--accent); font-weight: bold; position: absolute; margin-top: -65px; margin-left: 10px;">/7</span>
+            <div class="stat-label">Ketersediaan Sistem</div>
         </div>
+    </div>
+</section>
 
-        <div class="stats-grid reveal">
-            <div class="stat-item">
-                <div class="stat-value">SAW</div>
-                <div class="stat-label">Algoritma_Utama</div>
+<!-- Bagian Fitur -->
+<section id="fitur" style="margin-top: 8rem;">
+    <h2 class="section-title">Mengapa Memilih SIPENAB?</h2>
+    <p class="section-subtitle">Pendekatan modern untuk pengambilan keputusan di kampus. Kami menggantikan penilaian subjektif dengan presisi berbasis algoritma.</p>
+    
+    <div class="features-grid">
+        <div class="feature-card glass">
+            <div class="feature-icon"><i class="ti ti-scale"></i></div>
+            <h3>Keadilan Metodis</h3>
+            <p>Dengan mengimplementasikan algoritma SAW, setiap kandidat dinilai secara seragam berdasarkan kriteria benefit dan cost yang dinormalisasi seperti IPK dan penghasilan orang tua.</p>
+        </div>
+        <div class="feature-card glass">
+            <div class="feature-icon"><i class="ti ti-bolt"></i></div>
+            <h3>Peringkat Otomatis</h3>
+            <p>Cukup masukkan data ke dalam sistem, dan langsung dapatkan peringkat kandidat yang paling layak menerima beasiswa. Tidak perlu lagi repot dengan spreadsheet.</p>
+        </div>
+        <div class="feature-card glass">
+            <div class="feature-icon"><i class="ti ti-lock"></i></div>
+            <h3>Keamanan Berbasis Peran</h3>
+            <p>Dirancang dengan akses administratif. Administrator dan operator memiliki kontrol yang berbeda atas manajemen data dan pembobotan algoritma.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Bagian Testimoni -->
+<section id="testimoni" style="margin-top: 8rem;">
+    <h2 class="section-title">Dipercaya oleh Staf Akademik</h2>
+    <p class="section-subtitle">Dengarkan bagaimana SIPENAB mengubah alur kerja panitia beasiswa.</p>
+
+    <div class="testimonials">
+        <div class="review-card glass">
+            <p class="review-text">"Sebelum SIPENAB, menyortir ratusan pelamar membutuhkan waktu berminggu-minggu bagi tim kami. Sekarang, sistem secara matematis menghitung kandidat yang tepat dalam hitungan detik. Tampilan glassmorphism-nya adalah bonus yang luar biasa!"</p>
+            <div class="reviewer">
+                <div class="avatar">A</div>
+                <div class="reviewer-info">
+                    <h4>Ahmad R.</h4>
+                    <p>Kepala Bagian Kemahasiswaan</p>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">1.0</div>
-                <div class="stat-label">Versi_Sistem</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">RBAC</div>
-                <div class="stat-label">Protokol_Keamanan</div>
+        </div>
+        <div class="review-card glass">
+            <p class="review-text">"Yang paling saya sukai adalah transparansinya. Karena kami menggunakan metodologi SAW, kami dapat menjelaskan dengan tepat mengapa seorang mahasiswa dipilih. Ini benar-benar menghilangkan klaim ketidakadilan."</p>
+            <div class="reviewer">
+                <div class="avatar">S</div>
+                <div class="reviewer-info">
+                    <h4>Siti Nuraenah</h4>
+                    <p>Administrator Akademik</p>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
+</section>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            gsap.to('.reveal', {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                stagger: 0.15,
-                ease: 'power4.out'
-            });
+<!-- Bagian CTA -->
+<section>
+    <div class="cta-section glass">
+        <h2>Siap Memodernisasi Proses Seleksi Anda?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Terapkan SIPENAB di kampus Anda hari ini dan wujudkan keadilan absolut dalam distribusi beasiswa.</p>
+        <a href="<?= site_url('login') ?>" class="btn btn-primary"><i class="ti ti-rocket"></i> Mulai Sekarang</a>
+    </div>
+</section>
+
+<script>
+    // Animasi angka statistik
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    const animateNumbers = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-target'));
+                const duration = 2000;
+                const stepTime = Math.abs(Math.floor(duration / target));
+                
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += 1;
+                    el.textContent = current;
+                    if (current === target) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+                
+                observer.unobserve(el);
+            }
         });
-    </script>
-</body>
-</html>
+    };
+
+    const observer = new IntersectionObserver(animateNumbers, { threshold: 0.5 });
+    statNumbers.forEach(num => observer.observe(num));
+</script>
+
+<?= $this->endSection() ?>

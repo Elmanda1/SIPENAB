@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPENAB | Beasiswa Decision Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-color: #f0fdf4;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            
+            --blob-1: #3b82f6; /* blue */
+            --blob-2: #10b981; /* green */
+            --blob-3: #8b5cf6; /* purple */
+            
+            --btn-bg: rgba(255, 255, 255, 0.7);
+            --btn-hover: rgba(255, 255, 255, 0.9);
+            --accent: #2563eb;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            --blob-1: #2563eb; 
+            --blob-2: #059669; 
+            --blob-3: #6d28d9; 
+            
+            --btn-bg: rgba(30, 41, 59, 0.7);
+            --btn-hover: rgba(51, 65, 85, 0.9);
+            --accent: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.2;
+        }
+
+        /* --- BLOB ANIMATIONS (Background) --- */
+        .blobs-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.7;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+        .blob-1 {
+            width: 50vw; height: 50vw;
+            background: var(--blob-1);
+            top: -10%; left: -10%;
+            animation-duration: 25s;
+        }
+        .blob-2 {
+            width: 40vw; height: 40vw;
+            background: var(--blob-2);
+            bottom: -10%; right: -10%;
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+        .blob-3 {
+            width: 45vw; height: 45vw;
+            background: var(--blob-3);
+            top: 40%; left: 30%;
+            animation-delay: -10s;
+            animation-duration: 22s;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(10vw, 15vh) scale(1.1); }
+            66% { transform: translate(-10vw, 5vh) scale(0.9); }
+            100% { transform: translate(5vw, -15vh) scale(1); }
+        }
+
+        /* --- GLASSMORPHISM UTILITY --- */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            margin: 0 auto;
+            max-width: 1400px;
+            border-radius: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Layout Containers --- */
+        section {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: 1px solid transparent;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-glass {
+            background: var(--btn-bg);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            margin-left: 1rem;
+        }
+        .btn-glass:hover {
+            background: var(--btn-hover);
+            transform: translateY(-3px);
+        }
+
+        /* --- STATS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* --- ABOUT / FEATURES --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            width: 60px; height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .review-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .reviewer-info h4 { margin-bottom: 0.2rem; }
+        .reviewer-info p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* --- CTA --- */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            margin: 4rem auto;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 5%;
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding-top: 6rem; }
+            .btn { display: block; margin: 0 0 1rem 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Gradient Background Blobs -->
+    <div class="blobs-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">SIPENAB<span>.</span></a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#stats">Impact</a>
+            <a href="#testimonials">Testimonials</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+            🌓
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">Sistem Pendukung Keputusan</div>
+        <h1>Data-Driven Scholarship Selection</h1>
+        <p>Empowering universities to allocate scholarships fairly, accurately, and objectively using the Simple Additive Weighting (SAW) algorithm. Say goodbye to manual errors and bias.</p>
+        <div>
+            <a href="/login" class="btn btn-primary">Login Dashboard</a>
+            <a href="#features" class="btn btn-glass">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="stats-grid">
+            <div class="stat-card glass">
+                <div class="stat-number" data-target="4">0</div>
+                <div class="stat-label">Core Evaluation Criteria</div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-number" data-target="100">0</div>
+                <span style="font-size: 2rem; color: var(--accent); font-weight: bold; position: absolute; margin-top: -65px; margin-left: 55px;">%</span>
+                <div class="stat-label">Objective Accuracy</div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-number" data-target="24">0</div>
+                <span style="font-size: 2rem; color: var(--accent); font-weight: bold; position: absolute; margin-top: -65px; margin-left: 55px;">/7</span>
+                <div class="stat-label">System Integrity</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h2 class="section-title">Why Choose SIPENAB?</h2>
+        <p class="section-subtitle">A modern approach to campus decision making. We replace subjective, manual reviews with automated precision.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon">⚖️</div>
+                <h3>Methodical Fairness</h3>
+                <p>By implementing the SAW algorithm, every candidate is scored uniformly based on normalized benefit and cost criteria like GPA and parent income.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">⚡</div>
+                <h3>Automated Ranking</h3>
+                <p>Simply feed the data into the system, and instantly retrieve the exact rankings of who is most eligible. No more spreadsheet headaches.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">🔒</div>
+                <h3>Role-Based Security</h3>
+                <p>Designed with administrative access in mind. Administrators and operators have distinct control over data management and algorithm weighting.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2 class="section-title">Trusted by Academic Staff</h2>
+        <p class="section-subtitle">Hear how SIPENAB has transformed the scholarship committee workflows.</p>
+
+        <div class="testimonials">
+            <div class="review-card glass">
+                <p class="review-text">"Before SIPENAB, sorting through hundreds of applicants took our team weeks. Now, the system mathematically calculates the right candidates in seconds. The glassmorphism UI is just a beautiful bonus!"</p>
+                <div class="reviewer">
+                    <div class="avatar">A</div>
+                    <div class="reviewer-info">
+                        <h4>Ahmad R.</h4>
+                        <p>Head of Student Affairs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card glass">
+                <p class="review-text">"The transparency is what I love most. Because we use the SAW methodology, we can explain exactly why a student was selected. It completely eliminates claims of bias."</p>
+                <div class="reviewer">
+                    <div class="avatar">S</div>
+                    <div class="reviewer-info">
+                        <h4>Siti Nuraenah</h4>
+                        <p>Academic Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+        <div class="cta-section glass">
+            <h2>Ready to Modernize Your Selection Process?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Deploy SIPENAB on your campus today and bring absolute fairness to your scholarship distributions.</p>
+            <a href="#" class="btn btn-primary">Request Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 SIPENAB. Sistem Pendukung Keputusan Pemilihan Beasiswa.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with CodeIgniter 4 & Glassmorphism Design.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle Logic
+        const toggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check local storage for theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Simple Number Counter Animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const animateNumbers = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 2000;
+                    const stepTime = Math.abs(Math.floor(duration / target));
+                    
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += 1;
+                        el.textContent = current;
+                        if (current === target) {
+                            clearInterval(timer);
+                        }
+                    }, stepTime);
+                    
+                    observer.unobserve(el);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(animateNumbers, { threshold: 0.5 });
+        statNumbers.forEach(num => observer.observe(num));
+    </script>
+</body>
+</html>

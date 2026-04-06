@@ -2,19 +2,22 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>LAPORAN // SIPENAB_PERINGKAT_<?= date('Ymd') ?></title>
+    <title>LAPORAN | SIPENAB PERINGKAT <?= date('Ymd') ?></title>
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
-        
         body {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             padding: 40px;
-            color: #000;
-            background: #fff;
+            color: #1f2937;
+            background: #ffffff;
+            margin: 0;
         }
 
         .header {
-            border-bottom: 8px solid #000;
+            border-bottom: 2px solid #e5e7eb;
             margin-bottom: 40px;
             padding-bottom: 20px;
             display: flex;
@@ -23,11 +26,11 @@
         }
 
         h1 {
-            font-family: 'Staatliches', cursive;
-            font-size: 4rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
             margin: 0;
-            line-height: 0.8;
-            text-transform: uppercase;
+            line-height: 1.1;
+            color: #111827;
         }
 
         table {
@@ -37,29 +40,56 @@
         }
 
         th {
-            border: 4px solid #000;
-            background: #000;
-            color: #fff;
+            border-bottom: 2px solid #1f2937;
+            color: #4b5563;
             padding: 15px;
             text-align: left;
             text-transform: uppercase;
             font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
         }
 
         td {
-            border: 2px solid #000;
+            border-bottom: 1px solid #e5e7eb;
             padding: 15px;
-            font-weight: 800;
+            font-weight: 500;
         }
 
-        .stamp {
-            border: 4px solid #000;
+        .action-bars {
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
             padding: 10px 20px;
-            display: inline-block;
-            transform: rotate(-5deg);
-            font-family: 'Staatliches', cursive;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .btn-print { background: #2563eb; color: #fff; }
+        .btn-back { background: #fff; border: 1px solid #d1d5db; color: #374151; }
+
+        .tag-info {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         @media print {
@@ -69,22 +99,20 @@
     </style>
 </head>
 <body>
-    <div class="no-print" style="margin-bottom: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #000; color: #fff; border: none; cursor: pointer; font-weight: 800;">[ EKSEKUSI_PERINTAH_CETAK ]</button>
-        <button onclick="window.history.back()" style="padding: 10px 20px; background: #fff; color: #000; border: 2px solid #000; cursor: pointer; font-weight: 800; margin-left: 10px;">[ KEMBALI_KE_SISTEM ]</button>
+    <div class="no-print action-bars">
+        <button class="btn-print" onclick="window.print()"><i class="ti ti-printer"></i> Cetak Laporan</button>
+        <button class="btn-back" onclick="window.history.back()"><i class="ti ti-arrow-left"></i> Kembali</button>
     </div>
-
-    <div class="stamp">RILIS_RESMI</div>
 
     <div class="header">
         <div>
-            <h1>Laporan<br>Peringkat</h1>
-            <div style="margin-top: 10px; font-weight: 800;">SIPENAB_v1.0 // ALOKASI_BEASISWA_PNJ</div>
+            <h1><i class="ti ti-file-certificate" style="color: #2563eb;"></i> Laporan Peringkat</h1>
+            <div style="margin-top: 10px; font-weight: 600; color: #4b5563;">SIPENAB | ALOKASI BEASISWA PNJ</div>
         </div>
         <div style="text-align: right;">
-            <div>TANGGAL: <?= date('Y-m-d') ?></div>
-            <div>WAKTU: <?= date('H:i:s') ?></div>
-            <div>REF: <?= strtoupper(substr(md5(time()), 0, 12)) ?></div>
+            <div class="tag-info"><i class="ti ti-calendar"></i> TANGGAL: <?= date('d M Y') ?></div>
+            <div class="tag-info"><i class="ti ti-clock"></i> WAKTU: <?= date('H:i:s') ?></div>
+            <div class="tag-info"><i class="ti ti-hash"></i> REF: <?= strtoupper(substr(md5(time()), 0, 12)) ?></div>
         </div>
     </div>
 
@@ -92,18 +120,18 @@
         <thead>
             <tr>
                 <th style="width: 80px;">RANK</th>
-                <th style="width: 150px;">IDENTIFIKASI</th>
-                <th>NAMA_KANDIDAT</th>
-                <th style="width: 150px;">SKOR_AKHIR</th>
+                <th style="width: 150px;">IDENTITAS (NIM)</th>
+                <th>NAMA KANDIDAT</th>
+                <th style="width: 150px; text-align: right;">SKOR AKHIR</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($rankings as $row): ?>
             <tr>
-                <td>#<?= str_pad($row['ranking'], 2, '0', STR_PAD_LEFT) ?></td>
-                <td><?= esc($row['nim']) ?></td>
-                <td style="text-transform: uppercase;"><?= esc($row['nama']) ?></td>
-                <td><?= number_format($row['total_nilai'], 4) ?></td>
+                <td style="font-weight: 700; color: #2563eb;">#<?= str_pad($row['ranking'], 2, '0', STR_PAD_LEFT) ?></td>
+                <td><code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;"><?= esc($row['nim']) ?></code></td>
+                <td style="text-transform: uppercase;;"><?= esc($row['nama']) ?></td>
+                <td style="font-weight: 700; text-align: right;"><?= number_format($row['total_nilai'], 4) ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -111,12 +139,17 @@
 
     <div style="margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
         <div>
-            <div style="font-size: 0.7rem; color: #666; margin-bottom: 40px;">SPESIFIKASI_ALGORITMA:</div>
-            <div style="font-size: 0.8rem;">Metode: Simple Additive Weighting (SAW)<br>Verifikasi: Lulus_Deterministik<br>Status: Registri_Final</div>
+            <div style="font-weight: 700; margin-bottom: 10px; font-size: 0.9rem;">SPESIFIKASI ALGORITMA:</div>
+            <div style="font-size: 0.85rem; color: #4b5563; line-height: 1.8;">
+                <div><i class="ti ti-math"></i> Metode: Simple Additive Weighting (SAW)</div>
+                <div><i class="ti ti-checks"></i> Status: Hasil Final Seleksi</div>
+            </div>
         </div>
         <div style="text-align: right;">
-            <div style="margin-bottom: 60px;">PENANDATANGAN_OTORITAS</div>
-            <div style="border-top: 2px solid #000; display: inline-block; width: 250px; padding-top: 10px; font-weight: 800;">ADMINISTRATOR_SISTEM</div>
+            <div style="margin-bottom: 80px; font-weight: 600; color: #4b5563;">PENANDATANGAN OTORITAS</div>
+            <div style="border-top: 1px solid #1f2937; display: inline-block; width: 250px; padding-top: 10px; font-weight: 700;">
+                ADMINISTRATOR SISTEM
+            </div>
         </div>
     </div>
 </body>

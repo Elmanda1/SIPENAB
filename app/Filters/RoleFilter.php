@@ -12,11 +12,7 @@ class RoleFilter implements FilterInterface
     {
         $role = session()->get('role');
         if (!$arguments || !in_array($role, $arguments)) {
-            return service('response')->setJSON([
-                'status' => 403,
-                'error' => 'Forbidden',
-                'message' => 'You do not have permission to access this resource'
-            ])->setStatusCode(403);
+            return redirect()->to('/dashboard')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
     }
 

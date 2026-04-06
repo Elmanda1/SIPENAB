@@ -1,159 +1,41 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPENAB // OTORISASI_DIBUTUHKAN</title>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Staatliches&display=swap');
+<?= $this->extend('layout/main') ?>
 
-        :root {
-            --bg: #000000;
-            --surface: #111111;
-            --ink: #ffffff;
-            --accent: #ff3e00;
-            --mono: 'JetBrains Mono', monospace;
-            --display: 'Staatliches', cursive;
-        }
+<?= $this->section('content') ?>
 
-        * { box-sizing: border-box; }
+<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+    <div class="glass" style="width: 100%; max-width: 440px; padding: 3rem; text-align: center;">
+        <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, var(--accent), #a855f7); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: #fff;">
+            <i class="ti ti-school"></i>
+        </div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">SIPENAB</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2.5rem; font-size: 0.9rem;">Masuk ke Panel Administrasi</p>
+
+        <?php if(session()->getFlashdata('error')): ?>
+            <div style="background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; text-align: left; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                <i class="ti ti-alert-circle"></i> <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
         
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: .15;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--ink);
-            font-family: var(--mono);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 450px;
-            padding: clamp(1.5rem, 5vw, 3rem);
-            border: 4px solid var(--ink);
-            background: var(--surface);
-            position: relative;
-            box-shadow: 20px 20px 0px var(--accent);
-        }
-
-        h1 {
-            font-family: var(--display);
-            font-size: clamp(3rem, 10vw, 4rem);
-            margin: 0 0 2rem 0;
-            line-height: 0.8;
-            text-transform: uppercase;
-        }
-
-        .input-group {
-            margin-bottom: 2rem;
-        }
-
-        label {
-            display: block;
-            text-transform: uppercase;
-            font-weight: 800;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--ink);
-            color: var(--ink);
-            padding: 0.5rem 0;
-            font-family: var(--mono);
-            font-size: 1.2rem;
-            outline: none;
-        }
-
-        input:focus {
-            border-bottom-color: var(--accent);
-        }
-
-        .btn {
-            width: 100%;
-            background: var(--ink);
-            color: var(--bg);
-            border: none;
-            padding: 1.2rem;
-            font-family: var(--display);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn:hover {
-            background: var(--accent);
-        }
-
-        .footer-tag {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            font-size: 0.7rem;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        @media (max-width: 480px) {
-            .login-box { box-shadow: 10px 10px 0px var(--accent); }
-            .footer-tag { bottom: -30px; font-size: 0.6rem; }
-        }
-
-        .reveal { opacity: 0; transform: translateY(20px); }
-    </style>
-</head>
-<body>
-    <div class="login-box reveal">
-        <h1 class="reveal">Akses<br>Otoritas</h1>
-        
-        <form action="<?= site_url('login') ?>" method="POST">
-            <div class="input-group reveal">
-                <label>Identitas_Pengguna</label>
-                <input type="text" name="username" placeholder="USERNAME" required autofocus>
+        <form action="<?= site_url('login') ?>" method="POST" style="text-align: left;">
+            <div class="form-group">
+                <label><i class="ti ti-user"></i> Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
             </div>
             
-            <div class="input-group reveal">
-                <label>Kunci_Keamanan</label>
-                <input type="password" name="password" placeholder="PASSWORD" required>
+            <div class="form-group">
+                <label><i class="ti ti-key"></i> Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
             </div>
 
-            <button type="submit" class="btn reveal">Inisialisasi_Sesi</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+                <i class="ti ti-login"></i> Masuk ke Sistem
+            </button>
         </form>
 
-        <div class="footer-tag">SIPENAB_v1.0 // AUTHORIZATION_GATEWAY</div>
+        <p style="margin-top: 2rem; font-size: 0.78rem; color: var(--text-muted);">
+            SIPENAB v1.0 &mdash; Sistem Pendukung Keputusan Pemilihan Beasiswa
+        </p>
     </div>
+</div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            gsap.to('.reveal', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power4.out'
-            });
-        });
-    </script>
-</body>
-</html>
+<?= $this->endSection() ?>

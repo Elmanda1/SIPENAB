@@ -11,11 +11,7 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('isLoggedIn')) {
-            return service('response')->setJSON([
-                'status' => 401,
-                'error' => 'Unauthorized',
-                'message' => 'Please login to access this resource'
-            ])->setStatusCode(401);
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
     }
 

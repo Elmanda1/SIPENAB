@@ -1,59 +1,65 @@
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>
-<div class="stamp reveal" style="top: 10%; right: 10%;">REGISTRI</div>
-
-<header class="reveal" style="margin-bottom: 4rem;">
-    <h1 style="margin: 0;">Brankas<br>Kriteria</h1>
-    <div style="margin-top: 1rem; border-top: 8px solid var(--ink); padding-top: 1rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-        <div style="font-weight: 800; text-transform: uppercase; font-size: 1.2rem;">
-            Manajemen Database // Konfigurasi Bobot
-        </div>
-        <a href="<?= site_url('kriteria/new') ?>" class="btn">Tentukan_Metrik_Baru</a>
+<div class="page-header">
+    <div>
+        <h1 style="margin: 0; font-size: 3rem;">Data Kriteria</h1>
+        <p style="color: var(--text-muted);">Manajemen Konfigurasi Bobot & Metrik Parameter SAW</p>
     </div>
-</header>
+    <div>
+        <a href="<?= site_url('kriteria/new') ?>" class="btn btn-primary"><i class="ti ti-playlist-add"></i> Tambah Kriteria Baru</a>
+    </div>
+</div>
 
-<div class="table-wrapper reveal">
-    <table style="width: 100%; border-collapse: collapse;">
+<div class="glass" style="padding: 2rem; overflow-x: auto;">
+    <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-list"></i> Daftar Kriteria Evaluasi</h3>
+    <table style="width: 100%; min-width: 600px;">
         <thead>
-            <tr style="background: var(--ink); color: var(--surface);">
-                <th style="padding: 1rem; text-align: left; width: 100px;">KODE</th>
-                <th style="padding: 1rem; text-align: left;">NAMA_METRIK</th>
-                <th style="padding: 1rem; text-align: center;">BOBOT</th>
-                <th style="padding: 1rem; text-align: center;">TIPE</th>
-                <th style="padding: 1rem; text-align: right;">OPERASI</th>
+            <tr>
+                <th style="width: 100px;">Kode</th>
+                <th>Nama Kriteria</th>
+                <th style="text-align: center;">Bobot</th>
+                <th style="text-align: center;">Tipe</th>
+                <th style="text-align: right;">Aksi</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($kriteria as $k): ?>
-            <tr style="border-bottom: 2px solid var(--ink); transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
-                <td style="padding: 2rem 1rem; font-family: var(--mono); font-weight: 800; color: var(--accent);">
-                    <code><?= esc($k['kode_kriteria']) ?></code>
+            <tr>
+                <td style="font-weight: 800; color: var(--accent); font-family: var(--mono);">
+                    <?= esc($k['kode_kriteria']) ?>
                 </td>
-                <td style="padding: 2rem 1rem; font-weight: 800; text-transform: uppercase; font-size: 1.2rem;">
+                <td style="font-weight: 600; text-transform: uppercase;">
                     <?= esc($k['nama_kriteria']) ?>
                 </td>
-                <td style="padding: 2rem 1rem; text-align: center; font-family: var(--mono); font-weight: 800;">
+                <td style="text-align: center; font-weight: 800; font-family: var(--mono);">
                     <?= esc($k['bobot']) ?>
                 </td>
-                <td style="padding: 2rem 1rem; text-align: center; font-weight: 800; text-transform: uppercase;">
-                    <span style="background: <?= $k['tipe'] === 'benefit' ? '#000' : '#ff3e00' ?>; color: #fff; padding: 0.2rem 0.5rem; font-size: 0.8rem;">
-                        <?= esc($k['tipe']) ?>
-                    </span>
+                <td style="text-align: center;">
+                    <?php if(strtolower($k['tipe']) === 'benefit'): ?>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Benefit</span>
+                    <?php else: ?>
+                        <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Cost</span>
+                    <?php endif; ?>
                 </td>
-                <td style="padding: 2rem 1rem; text-align: right;">
-                    <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-                        <a href="<?= site_url('kriteria/delete/'.$k['id']) ?>" style="background: var(--accent); color: var(--ink); text-decoration: none; border: 2px solid var(--ink); padding: 0.5rem 1rem; font-weight: 800; font-size: 0.7rem;" onclick="return confirm('Hapus kriteria?')">[ PURGE ]</a>
-                    </div>
+                <td style="text-align: right;">
+                    <a href="<?= site_url('kriteria/delete/'.$k['id']) ?>" class="btn" style="background: var(--danger); color: white; padding: 0.5rem 0.8rem; font-size: 0.85rem;" onclick="return confirm('Apakah Anda yakin ingin menghapus kriteria ini?')" title="Hapus"><i class="ti ti-trash"></i></a>
                 </td>
             </tr>
             <?php endforeach; ?>
+            <?php if(empty($kriteria)): ?>
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                        <i class="ti ti-database-x" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
+                        Belum ada data kriteria yang terdaftar.
+                    </td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
 
-<footer class="reveal" style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 0.8rem;">
-    <div>METRIK_TERMUAT: <?= count($kriteria) ?></div>
-    <div>ALGORITMA: BOBOT_SAW_SIAP</div>
+<footer style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; flex-wrap: wrap; gap: 1rem; border:none; padding:0; background:transparent;">
+    <div><i class="ti ti-server"></i> Total Kriteria: <strong><?= count($kriteria) ?></strong></div>
 </footer>
 <?= $this->endSection() ?>

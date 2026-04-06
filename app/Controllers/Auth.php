@@ -40,19 +40,15 @@ class Auth extends BaseController
                 'isLoggedIn' => true
             ]);
 
-            return $this->respond([
-                'status' => 'success',
-                'message' => 'Login successful',
-                'role' => $role
-            ]);
+            return redirect()->to('dashboard')->with('success', 'Berhasil login sebagai ' . $role);
         }
 
-        return $this->failUnauthorized('Invalid credentials');
+        return redirect()->back()->with('error', 'Username atau password salah.');
     }
 
     public function logout()
     {
         session()->destroy();
-        return $this->respond(['message' => 'Logged out successfully']);
+        return redirect()->to('/')->with('success', 'Berhasil logout.');
     }
 }

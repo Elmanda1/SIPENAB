@@ -8,33 +8,30 @@ use App\Models\MahasiswaModel;
 use App\Models\PenilaianModel;
 use App\Models\HasilModel;
 use App\Libraries\SAWCalculator;
-use CodeIgniter\API\ResponseTrait;
 
 class Ranking extends BaseController
 {
-    use ResponseTrait;
-
     public function calculate()
     {
-        $kriteriaModel = new KriteriaModel();
+        $kriteriaModel  = new KriteriaModel();
         $mahasiswaModel = new MahasiswaModel();
         $penilaianModel = new PenilaianModel();
-        $hasilModel = new HasilModel();
-        $calculator = new SAWCalculator();
+        $hasilModel     = new HasilModel();
+        $calculator     = new SAWCalculator();
 
-        // 1. Fetch Criteria and Weights
+        // 1. Fetch Criteria
         $kriteria = $kriteriaModel->orderBy('id', 'ASC')->findAll();
         if (empty($kriteria)) {
-            return $this->fail('No criteria found.', 400);
+            return redirect()->to('dashboard')->with('error', 'Tidak ada kriteria. Tambah kriteria terlebih dahulu.');
         }
 
-        // 2. Fetch all students
+        // 2. Fetch students
         $mahasiswa = $mahasiswaModel->findAll();
         if (empty($mahasiswa)) {
-            return $this->fail('No students found.', 400);
+            return redirect()->to('dashboard')->with('error', 'Tidak ada data mahasiswa. Tambah mahasiswa terlebih dahulu.');
         }
 
-        // 3. Build Matrix
+        // 3. Build decision matrix
         $matrix = [];
         foreach ($mahasiswa as $m) {
             $mId = $m['id'];
@@ -42,37 +39,33 @@ class Ranking extends BaseController
             foreach ($kriteria as $k) {
                 $p = $penilaianModel->where([
                     'mahasiswa_id' => $mId,
-                    'kriteria_id' => $k['id']
+                    'kriteria_id'  => $k['id']
                 ])->first();
                 $row[] = $p ? (float)$p['nilai'] : 0;
             }
             $matrix[$mId] = $row;
         }
 
-        // 4. Format criteria for calculator
+        // 4. Format criteria for SAW
         $criteriaData = array_map(fn($k) => [
-            'type' => $k['tipe'],
+            'type'   => $k['tipe'],
             'weight' => (float)$k['bobot']
         ], $kriteria);
 
-        // 5. Run SAW Calculation
-        $scores = $calculator->calculateScores($matrix, $criteriaData);
+        // 5. Run SAW
+        $scores        = $calculator->calculateScores($matrix, $criteriaData);
         $rankedResults = $calculator->rank($scores);
 
-        // 6. Save/Update Results
-        $hasilModel->truncate(); // Clear old results
+        // 6. Save results
+        $hasilModel->truncate();
         foreach ($rankedResults as $res) {
             $hasilModel->insert([
                 'mahasiswa_id' => $res['id'],
-                'total_nilai' => $res['score'],
-                'ranking' => $res['rank']
+                'total_nilai'  => $res['score'],
+                'ranking'      => $res['rank']
             ]);
         }
 
-        return $this->respond([
-            'status' => 'success',
-            'message' => 'Ranking calculated and saved successfully.',
-            'results' => $rankedResults
-        ]);
+        return redirect()->to('dashboard')->with('success', 'Perhitungan SAW berhasil! Peringkat ' . count($rankedResults) . ' kandidat telah diperbarui.');
     }
 }
