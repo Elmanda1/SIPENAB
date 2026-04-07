@@ -6,14 +6,23 @@
         <h1 style="margin: 0; font-size: 3rem;">Data Mahasiswa</h1>
         <p style="color: var(--text-muted);">Manajemen Database Kandidat Beasiswa</p>
     </div>
-    <div>
+    <div class="header-actions">
+        <form method="get" action="<?= current_url() ?>">
+            <label style="font-weight: 600;">Tampilkan</label>
+            <select name="limit" onchange="this.form.submit()" class="form-control" style="min-width: 120px;">
+                <option value="25" <?= isset($perPage) && $perPage === 25 ? 'selected' : '' ?>>25</option>
+                <option value="50" <?= isset($perPage) && $perPage === 50 ? 'selected' : '' ?>>50</option>
+                <option value="100" <?= isset($perPage) && $perPage === 100 ? 'selected' : '' ?>>100</option>
+            </select>
+            <span style="color: var(--text-muted);">entri per halaman</span>
+        </form>
         <a href="<?= site_url('mahasiswa/new') ?>" class="btn btn-primary"><i class="ti ti-user-plus"></i> Tambah Kandidat</a>
     </div>
 </div>
 
-<div class="glass" style="padding: 2rem; overflow-x: auto;">
+<div class="glass table-responsive" style="padding: 2rem;">
     <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-users"></i> Daftar Register Kandidat</h3>
-    <table style="width: 100%; min-width: 800px;">
+    <table style="width: 100%;">
         <thead>
             <tr>
                 <th style="width: 150px;">Identitas (NIM)</th>
@@ -56,7 +65,16 @@
     </table>
 </div>
 
-<footer style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; flex-wrap: wrap; gap: 1rem; border:none; padding:0; background:transparent;">
-    <div><i class="ti ti-server"></i> Total Entitas Aktif: <strong><?= count($mahasiswa) ?></strong></div>
+<div style="margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+    <div style="color: var(--text-muted); font-size: 0.95rem;">
+        Menampilkan <strong><?= count($mahasiswa) ?></strong> dari total <strong><?= $pager->getTotal() ?></strong> kandidat
+    </div>
+    <div>
+        <?= $pager->links() ?>
+    </div>
+</div>
+
+<footer style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; flex-wrap: wrap; gap: 1rem; border:none; padding:0; background:transparent;">
+    <div><i class="ti ti-server"></i> Total Entitas Aktif: <strong><?= $pager->getTotal() ?></strong></div>
 </footer>
 <?= $this->endSection() ?>

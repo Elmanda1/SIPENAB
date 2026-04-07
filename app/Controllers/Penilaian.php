@@ -13,14 +13,26 @@ class Penilaian extends BaseController
     {
         $mahasiswaModel = new MahasiswaModel();
         $penilaianModel = new PenilaianModel();
-        
-        $data['mahasiswa'] = $mahasiswaModel->findAll();
-        
-        // Fetch total evaluations per student for status display
-        $evaluations = $penilaianModel->select('mahasiswa_id, COUNT(*) as total')
-                                      ->groupBy('mahasiswa_id')
-                                      ->findAll();
-                                      
+
+        $allowedPerPage = [25, 50, 100];
+        $perPage = (int) $this->request->getGet('limit') ?: 25;
+        if (! in_array($perPage, $allowedPerPage, true)) {
+            $perPage = 25;
+        }
+
+        $data['mahasiswa'] = $mahasiswaModel->orderBy('nim', 'ASC')->paginate($perPage, 'default');
+        $data['pager'] = $mahasiswaModel->pager;
+        $data['perPage'] = $perPage;
+
+        $studentIds = array_column($data['mahasiswa'], 'id');
+        $evaluations = [];
+        if (! empty($studentIds)) {
+            $evaluations = $penilaianModel->select('mahasiswa_id, COUNT(*) as total')
+                                          ->whereIn('mahasiswa_id', $studentIds)
+                                          ->groupBy('mahasiswa_id')
+                                          ->findAll();
+        }
+
         $data['eval_counts'] = [];
         foreach ($evaluations as $e) {
             $data['eval_counts'][$e['mahasiswa_id']] = $e['total'];

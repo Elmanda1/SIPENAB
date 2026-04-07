@@ -326,6 +326,124 @@
 
         .page-header p { color: var(--muted); margin-top: 0.25rem; }
 
+        .page-header .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .page-header .header-actions form {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-header .header-actions select {
+            min-width: 120px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-responsive table th,
+        .table-responsive table td {
+            padding: 0.85rem 0.75rem;
+        }
+
+        .pager-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pagination {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination li {
+            display: inline;
+        }
+
+        .pagination li a,
+        .pagination li span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 0.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            background: var(--surface2);
+            font-size: 0.9rem;
+        }
+
+        .pagination li a:hover,
+        .pagination li span.current {
+            background: var(--glass);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .page-header .header-actions {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .page-header .header-actions form {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .page-header .header-actions form label {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 0;
+            }
+
+            .page-header .header-actions form select {
+                width: 100%;
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .topbar {
+                left: 0;
+            }
+
+            .content-area {
+                padding: 1.25rem;
+            }
+        }
+
         /* ===== CARDS ===== */
         .card {
             background: var(--surface);

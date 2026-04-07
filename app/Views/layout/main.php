@@ -268,6 +268,139 @@
             gap: 1rem;
         }
 
+        .page-header .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .page-header .header-actions form {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-header .header-actions select {
+            min-width: 120px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-responsive table th,
+        .table-responsive table td {
+            padding: 0.85rem 0.75rem;
+        }
+
+        .evaluation-matrix table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 1rem;
+        }
+
+        .evaluation-matrix thead tr {
+            background: transparent;
+        }
+
+        .evaluation-matrix tbody tr {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+        }
+
+        .evaluation-matrix th,
+        .evaluation-matrix td {
+            padding: 1rem 1rem;
+        }
+
+        .evaluation-matrix td {
+            vertical-align: middle;
+        }
+
+        .evaluation-matrix td input.form-control {
+            min-width: 180px;
+        }
+
+        .pager-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pagination {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination li {
+            display: inline;
+        }
+
+        .pagination li a,
+        .pagination li span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 0.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            text-decoration: none;
+            color: var(--text-main);
+            background: var(--btn-bg);
+            font-size: 0.9rem;
+        }
+
+        .pagination li a:hover,
+        .pagination li span.current {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .page-header .header-actions {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .page-header .header-actions form {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .page-header .header-actions select {
+                width: 100%;
+            }
+
+            .main-content {
+                padding: 2rem 5%;
+            }
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 3rem 5%;

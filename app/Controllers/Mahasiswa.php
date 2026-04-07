@@ -13,8 +13,18 @@ class Mahasiswa extends BaseController
     public function index()
     {
         $model = new MahasiswaModel();
-        $data['mahasiswa'] = $model->findAll();
+
+        $allowedPerPage = [25, 50, 100];
+        $perPage = (int) $this->request->getGet('limit') ?: 25;
+        if (! in_array($perPage, $allowedPerPage, true)) {
+            $perPage = 25;
+        }
+
+        $data['mahasiswa'] = $model->orderBy('nim', 'ASC')->paginate($perPage, 'default');
+        $data['pager'] = $model->pager;
+        $data['perPage'] = $perPage;
         $data['title'] = 'STUDENT_REGISTRY';
+
         return view('mahasiswa/index', $data);
     }
 

@@ -30,31 +30,33 @@
             <input type="hidden" name="mahasiswa_id" value="<?= $mahasiswa['id'] ?>">
 
             <div style="overflow-x: auto; margin-bottom: 3rem;">
-                <table style="width: 100%; min-width: 500px;">
-                    <thead>
-                        <tr>
-                            <th style="width: 100px;">Kode</th>
-                            <th>Nama Metrik / Kriteria</th>
-                            <th style="width: 250px;">Nilai Input</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($kriteria as $k): ?>
-                        <?php $currentVal = isset($existing_values[$k['id']]) ? $existing_values[$k['id']] : ''; ?>
-                        <tr>
-                            <td style="font-weight: 800; color: var(--accent); font-family: var(--mono);">
-                                <?= esc($k['kode_kriteria']) ?>
-                            </td>
-                            <td style="font-weight: 600; text-transform: uppercase;">
-                                <?= esc($k['nama_kriteria']) ?>
-                            </td>
-                            <td>
-                                <input type="number" step="0.01" name="nilai[<?= $k['id'] ?>]" class="form-control" value="<?= esc($currentVal) ?>" placeholder="Contoh: 85.5" required>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <div class="evaluation-matrix">
+                    <table style="width: 100%; min-width: 500px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px;">Kode</th>
+                                <th>Nama Metrik / Kriteria</th>
+                                <th style="width: 250px;">Nilai Input</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($kriteria as $k): ?>
+                            <?php $currentVal = isset($existing_values[$k['id']]) ? $existing_values[$k['id']] : ''; ?>
+                            <tr>
+                                <td style="font-weight: 800; color: var(--accent); font-family: var(--mono);">
+                                    <?= esc($k['kode_kriteria']) ?>
+                                </td>
+                                <td style="font-weight: 600; text-transform: uppercase;">
+                                    <?= esc($k['nama_kriteria']) ?>
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" name="nilai[<?= $k['id'] ?>]" class="form-control" value="<?= esc($currentVal) ?>" placeholder="Contoh: 85.5" required>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div style="display: flex; gap: 1rem;">

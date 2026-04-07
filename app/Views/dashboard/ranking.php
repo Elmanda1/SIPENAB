@@ -45,7 +45,8 @@
     <!-- MATRIX SECTION -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
         <div class="glass" style="padding: 2rem;">
-            <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-list-numbers"></i> Peringkat Lengkap</h3>
+            <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-list-numbers"></i> Peringkat Teratas</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Menampilkan 10 teratas terlebih dahulu. Klik tombol di bawah untuk memuat 15 hasil berikutnya sampai semua kandidat ditampilkan.</p>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; min-width: 100%;">
                     <thead>
@@ -56,8 +57,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach (array_slice($rankings, 1) as $row): ?>
-                        <tr>
+                        <?php foreach (array_slice($rankings, 1) as $index => $row): ?>
+                        <tr class="ranking-row<?= $index >= 9 ? ' hidden-row' : '' ?>" data-row-index="<?= $index + 2 ?>">
                             <td style="font-weight: 800; color: var(--accent); font-size: 1.2rem;">#<?= str_pad($row['ranking'], 2, '0', STR_PAD_LEFT) ?></td>
                             <td>
                                 <div style="font-weight: 600; text-transform: uppercase;"><?= esc($row['nama']) ?></div>
@@ -71,21 +72,46 @@
                     </tbody>
                 </table>
             </div>
+
+            <?php if (count($rankings) > 10): ?>
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center;">
+                <button id="loadMoreRanksBtn" class="btn btn-primary" style="padding: 0.9rem 1.5rem; min-width: 220px;">
+                    <i class="ti ti-arrow-down"></i> Tampilkan 15 Hasil Berikutnya
+                </button>
+            </div>
+            <?php endif; ?>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 2rem;">
-            <div class="glass" style="padding: 2rem;">
-                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-chart-radar"></i> Bobot Kriteria</h3>
-                <canvas id="criteriaChart" height="250"></canvas>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="glass" style="padding: 1.5rem; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;">
+                <div>
+                    <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-chart-radar"></i> Bobot Kriteria</h3>
+                    <p style="color: var(--text-muted); margin: 0 0 1rem 0; font-size: 0.95rem;">Perbandingan bobot kriteria yang digunakan dalam perhitungan SAW.</p>
+                </div>
+                <div style="flex: 1; min-height: 180px;">
+                    <canvas id="criteriaChart" height="180" style="width: 100%; height: 100%; display: block;"></canvas>
+                </div>
             </div>
             
-            <div class="glass" style="padding: 2rem;">
-                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-server"></i> Telemetri Sistem</h3>
-                <div style="font-size: 0.9rem; line-height: 2; color: var(--text-muted);">
-                    <div><i class="ti ti-circle-check" style="color: #10b981;"></i> Status: Operasional</div>
-                    <div><i class="ti ti-math" style="color: var(--accent);"></i> Algoritma: SAW Terbobot</div>
-                    <div><i class="ti ti-users"></i> Total Kandidat: <?= count($rankings) ?></div>
-                    <div><i class="ti ti-clock"></i> Timestamp: <?= date('d M Y, H:i') ?></div>
+            <div class="glass" style="padding: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ti ti-server"></i> Telemetri Sistem</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+                    <div style="background: var(--glass-bg); padding: 0.85rem 1rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <div style="font-weight: 600; color: var(--text-main);">Status</div>
+                        <div>Operasional</div>
+                    </div>
+                    <div style="background: var(--glass-bg); padding: 0.85rem 1rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <div style="font-weight: 600; color: var(--text-main);">Algoritma</div>
+                        <div>SAW Terbobot</div>
+                    </div>
+                    <div style="background: var(--glass-bg); padding: 0.85rem 1rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <div style="font-weight: 600; color: var(--text-main);">Total Kandidat</div>
+                        <div><?= count($rankings) ?></div>
+                    </div>
+                    <div style="background: var(--glass-bg); padding: 0.85rem 1rem; border-radius: 16px; border: 1px solid var(--glass-border);">
+                        <div style="font-weight: 600; color: var(--text-main);">Timestamp</div>
+                        <div><?= date('d M Y, H:i') ?></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,6 +125,11 @@
     </div>
 <?php endif; ?>
 
+<style>
+    .ranking-row.hidden-row {
+        display: none;
+    }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 <?php if (!empty($rankings)): ?>
@@ -139,6 +170,33 @@
             plugins: { legend: { display: false } },
             maintainAspectRatio: false
         }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const loadBtn = document.getElementById('loadMoreRanksBtn');
+        if (!loadBtn) return;
+
+        const hiddenRows = Array.from(document.querySelectorAll('.ranking-row.hidden-row'));
+        let currentIndex = 0;
+        const chunkSize = 15;
+
+        const updateButtonLabel = () => {
+            const remaining = hiddenRows.length - currentIndex;
+            if (remaining <= 0) {
+                loadBtn.style.display = 'none';
+                return;
+            }
+            loadBtn.innerHTML = `<i class="ti ti-arrow-down"></i> Tampilkan ${Math.min(chunkSize, remaining)} Hasil Berikutnya`;
+        };
+
+        loadBtn.addEventListener('click', () => {
+            const nextRows = hiddenRows.slice(currentIndex, currentIndex + chunkSize);
+            nextRows.forEach(row => row.classList.remove('hidden-row'));
+            currentIndex += nextRows.length;
+            updateButtonLabel();
+        });
+
+        updateButtonLabel();
     });
 <?php endif; ?>
 </script>
