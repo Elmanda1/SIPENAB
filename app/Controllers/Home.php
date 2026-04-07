@@ -9,12 +9,7 @@ class Home extends BaseController
         if (session()->get('isLoggedIn')) {
             return redirect()->to('dashboard');
         }
-        return view('home/index');
-    }
-
-    public function about()
-    {
-        $data['title'] = 'METHODOLOGY_SAW';
-        return view('home/about', $data);
+        $data['title'] = 'Home';
+        return view('home/index', $data);
     }
 }
