@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>LAPORAN | SIPENAB PERINGKAT <?= date('Ymd') ?></title>
     <!-- Tabler Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -57,12 +60,19 @@
         }
 
         .action-bars {
-            background: rgba(37, 99, 235, 0.1);
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            background: #ffffff;
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
+            padding: 15px 20px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #e5e7eb;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         button {
@@ -78,10 +88,15 @@
             transition: opacity 0.2s;
         }
 
-        button:hover { opacity: 0.9; }
+        button:hover {
+            opacity: 0.9;
+        }
 
-        .btn-print { background: #2563eb; color: #fff; }
+        .btn-print { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .btn-print:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4); }
+        
         .btn-back { background: #fff; border: 1px solid #d1d5db; color: #374151; }
+        .btn-back:hover { background: #f3f4f6; transform: translateY(-2px); }
 
         .tag-info {
             font-size: 0.85rem;
@@ -93,15 +108,22 @@
         }
 
         @media print {
-            .no-print { display: none; }
-            body { padding: 0; }
+            .no-print {
+                display: none;
+            }
+
+            body {
+                padding: 0;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="no-print action-bars">
         <button class="btn-print" onclick="window.print()"><i class="ti ti-printer"></i> Cetak Laporan</button>
-        <button class="btn-back" onclick="window.history.back()"><i class="ti ti-arrow-left"></i> Kembali</button>
+        <button class="btn-back" onclick="window.location.href='<?= site_url('dashboard') ?>'"><i
+                class="ti ti-arrow-left"></i> Kembali ke Dashboard</button>
     </div>
 
     <div class="header">
@@ -127,12 +149,15 @@
         </thead>
         <tbody>
             <?php foreach ($rankings as $row): ?>
-            <tr>
-                <td style="font-weight: 700; color: #2563eb;">#<?= str_pad($row['ranking'], 2, '0', STR_PAD_LEFT) ?></td>
-                <td><code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;"><?= esc($row['nim']) ?></code></td>
-                <td style="text-transform: uppercase;;"><?= esc($row['nama']) ?></td>
-                <td style="font-weight: 700; text-align: right;"><?= number_format($row['total_nilai'], 4) ?></td>
-            </tr>
+                <tr>
+                    <td style="font-weight: 700; color: #2563eb;">#<?= str_pad($row['ranking'], 2, '0', STR_PAD_LEFT) ?>
+                    </td>
+                    <td><code
+                            style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;"><?= esc($row['nim']) ?></code>
+                    </td>
+                    <td style="text-transform: uppercase;;"><?= esc($row['nama']) ?></td>
+                    <td style="font-weight: 700; text-align: right;"><?= number_format($row['total_nilai'], 4) ?></td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -147,10 +172,12 @@
         </div>
         <div style="text-align: right;">
             <div style="margin-bottom: 80px; font-weight: 600; color: #4b5563;">PENANDATANGAN OTORITAS</div>
-            <div style="border-top: 1px solid #1f2937; display: inline-block; width: 250px; padding-top: 10px; font-weight: 700;">
+            <div
+                style="border-top: 1px solid #1f2937; display: inline-block; width: 250px; padding-top: 10px; font-weight: 700;">
                 ADMINISTRATOR SISTEM
             </div>
         </div>
     </div>
 </body>
+
 </html>
