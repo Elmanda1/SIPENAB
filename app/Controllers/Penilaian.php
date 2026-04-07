@@ -16,7 +16,7 @@ class Penilaian extends BaseController
 
         $allowedPerPage = [25, 50, 100];
         $perPage = (int) $this->request->getGet('limit') ?: 25;
-        if (! in_array($perPage, $allowedPerPage, true)) {
+        if (!in_array($perPage, $allowedPerPage, true)) {
             $perPage = 25;
         }
 
@@ -26,11 +26,11 @@ class Penilaian extends BaseController
 
         $studentIds = array_column($data['mahasiswa'], 'id');
         $evaluations = [];
-        if (! empty($studentIds)) {
+        if (!empty($studentIds)) {
             $evaluations = $penilaianModel->select('mahasiswa_id, COUNT(*) as total')
-                                          ->whereIn('mahasiswa_id', $studentIds)
-                                          ->groupBy('mahasiswa_id')
-                                          ->findAll();
+                ->whereIn('mahasiswa_id', $studentIds)
+                ->groupBy('mahasiswa_id')
+                ->findAll();
         }
 
         $data['eval_counts'] = [];
@@ -38,7 +38,7 @@ class Penilaian extends BaseController
             $data['eval_counts'][$e['mahasiswa_id']] = $e['total'];
         }
 
-        $data['title'] = 'EVALUATION_MATRIX';
+        $data['title'] = 'Matriks Penilaian';
         return view('penilaian/index', $data);
     }
 
@@ -55,7 +55,7 @@ class Penilaian extends BaseController
 
         $data['mahasiswa'] = $mahasiswaModel->find($mahasiswaId);
         $data['kriteria'] = $kriteriaModel->orderBy('id', 'ASC')->findAll();
-        
+
         // Fetch existing values if any
         $existing = $penilaianModel->where('mahasiswa_id', $mahasiswaId)->findAll();
         $data['existing_values'] = [];
@@ -63,7 +63,7 @@ class Penilaian extends BaseController
             $data['existing_values'][$e['kriteria_id']] = $e['nilai'];
         }
 
-        $data['title'] = 'EVALUATION_INPUT';
+        $data['title'] = 'Input Penilaian';
         return view('penilaian/new', $data);
     }
 
@@ -85,8 +85,8 @@ class Penilaian extends BaseController
             if ($nilai !== '') { // Only save filled inputs
                 $batchData[] = [
                     'mahasiswa_id' => $mahasiswaId,
-                    'kriteria_id'  => $kriteriaId,
-                    'nilai'        => $nilai
+                    'kriteria_id' => $kriteriaId,
+                    'nilai' => $nilai
                 ];
             }
         }

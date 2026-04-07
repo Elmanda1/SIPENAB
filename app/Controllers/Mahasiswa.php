@@ -16,14 +16,14 @@ class Mahasiswa extends BaseController
 
         $allowedPerPage = [25, 50, 100];
         $perPage = (int) $this->request->getGet('limit') ?: 25;
-        if (! in_array($perPage, $allowedPerPage, true)) {
+        if (!in_array($perPage, $allowedPerPage, true)) {
             $perPage = 25;
         }
 
         $data['mahasiswa'] = $model->orderBy('nim', 'ASC')->paginate($perPage, 'default');
         $data['pager'] = $model->pager;
         $data['perPage'] = $perPage;
-        $data['title'] = 'STUDENT_REGISTRY';
+        $data['title'] = 'Data Mahasiswa';
 
         return view('mahasiswa/index', $data);
     }
@@ -32,7 +32,7 @@ class Mahasiswa extends BaseController
     {
         $model = new MahasiswaModel();
         $penilaianModel = new \App\Models\PenilaianModel();
-        
+
         $data['mahasiswa'] = $model->find($id);
         if (!$data['mahasiswa']) {
             return redirect()->to('mahasiswa');
@@ -43,13 +43,13 @@ class Mahasiswa extends BaseController
             ->where('mahasiswa_id', $id)
             ->findAll();
 
-        $data['title'] = 'STUDENT_PROFILE';
+        $data['title'] = 'Profil Kandidat';
         return view('mahasiswa/show', $data);
     }
 
     public function new()
     {
-        $data['title'] = 'REGISTER_CANDIDATE';
+        $data['title'] = 'Registrasi Kandidat';
         return view('mahasiswa/new', $data);
     }
 
@@ -72,7 +72,7 @@ class Mahasiswa extends BaseController
         if (!$data['mahasiswa']) {
             return redirect()->to('mahasiswa');
         }
-        $data['title'] = 'MODIFY_CANDIDATE';
+        $data['title'] = 'Perbarui Kandidat';
         return view('mahasiswa/edit', $data);
     }
 

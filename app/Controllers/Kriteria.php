@@ -14,13 +14,13 @@ class Kriteria extends BaseController
     {
         $model = new KriteriaModel();
         $data['kriteria'] = $model->findAll();
-        $data['title'] = 'CRITERIA_REGISTRY';
+        $data['title'] = 'Data Kriteria';
         return view('kriteria/index', $data);
     }
 
     public function new()
     {
-        $data['title'] = 'REGISTER_CRITERIA';
+        $data['title'] = 'Tambah Kriteria';
         return view('kriteria/new', $data);
     }
 

@@ -12,14 +12,14 @@ class Dashboard extends BaseController
     {
         $hasilModel = new HasilModel();
         $kriteriaModel = new KriteriaModel();
-        
+
         $data['rankings'] = $hasilModel->select('hasil.*, mahasiswa.nama, mahasiswa.nim')
             ->join('mahasiswa', 'mahasiswa.id = hasil.mahasiswa_id')
             ->orderBy('ranking', 'ASC')
             ->findAll();
 
         $data['criteria'] = $kriteriaModel->findAll();
-        $data['title'] = 'RANKING_INDEX';
+        $data['title'] = 'Ranking SAW';
 
         return view('dashboard/ranking', $data);
     }
