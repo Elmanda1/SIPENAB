@@ -9,6 +9,7 @@ class Auth extends BaseController
 {
     use ResponseTrait;
 
+    # Function yang berfungsi untuk menampilkan halaman login pengguna
     public function index()
     {
         if (session()->get('isLoggedIn')) {
@@ -17,6 +18,7 @@ class Auth extends BaseController
         return view('auth/login');
     }
 
+    # Function yang berfungsi untuk memproses autentikasi login berdasarkan email dan password
     public function login()
     {
         $username = $this->request->getPost('username');
@@ -39,6 +41,7 @@ class Auth extends BaseController
         return redirect()->back()->with('error', 'Username atau password salah.');
     }
 
+    # Function yang berfungsi untuk memproses logout dan mengakhiri sesi pengguna
     public function logout()
     {
         session()->destroy();

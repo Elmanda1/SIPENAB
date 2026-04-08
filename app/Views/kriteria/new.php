@@ -1,3 +1,4 @@
+<?php # Halaman untuk menambahkan kriteria penilaian baru ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

@@ -6,6 +6,7 @@ use CodeIgniter\Database\Seeder;
 
 class SawCrossCheckSeeder extends Seeder
 {
+    # Function yang berfungsi untuk mengisi data uji coba guna pengecekan silang formula SAW
     public function run()
     {
         // 1. Insert Criteria

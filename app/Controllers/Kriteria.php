@@ -10,6 +10,7 @@ class Kriteria extends BaseController
 {
     use ResponseTrait;
 
+    # Function yang berfungsi untuk menampilkan daftar seluruh kriteria penilaian
     public function index()
     {
         $model = new KriteriaModel();
@@ -18,12 +19,14 @@ class Kriteria extends BaseController
         return view('kriteria/index', $data);
     }
 
+    # Function yang berfungsi untuk menampilkan form pembuatan kriteria penilaian baru
     public function new()
     {
         $data['title'] = 'Tambah Kriteria';
         return view('kriteria/new', $data);
     }
 
+    # Function yang berfungsi untuk memproses penyimpanan data kriteria baru ke database
     public function create()
     {
         $model = new KriteriaModel();
@@ -37,6 +40,7 @@ class Kriteria extends BaseController
         return redirect()->to('kriteria')->with('message', 'Record committed successfully');
     }
 
+    # Function yang berfungsi untuk menghapus data kriteria dari database
     public function delete($id = null)
     {
         $model = new KriteriaModel();

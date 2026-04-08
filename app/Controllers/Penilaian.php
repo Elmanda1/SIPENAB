@@ -9,6 +9,7 @@ use App\Models\KriteriaModel;
 
 class Penilaian extends BaseController
 {
+    # Function yang berfungsi untuk menampilkan daftar nilai yang telah diinputkan untuk setiap mahasiswa
     public function index()
     {
         $mahasiswaModel = new MahasiswaModel();
@@ -57,6 +58,7 @@ class Penilaian extends BaseController
         return view('penilaian/index', $data);
     }
 
+    # Function yang berfungsi untuk menampilkan form penginputan nilai kriteria mahasiswa
     public function new()
     {
         $mahasiswaId = $this->request->getGet('mahasiswa_id');
@@ -82,6 +84,7 @@ class Penilaian extends BaseController
         return view('penilaian/new', $data);
     }
 
+    # Function yang berfungsi untuk menyimpan data hasil penilaian mahasiswa
     public function create()
     {
         $penilaianModel = new PenilaianModel();

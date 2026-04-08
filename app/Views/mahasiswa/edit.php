@@ -1,3 +1,4 @@
+<?php # Halaman untuk mengubah data mahasiswa ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

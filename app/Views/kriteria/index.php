@@ -1,3 +1,4 @@
+<?php # Halaman daftar kriteria penilaian beasiswa ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

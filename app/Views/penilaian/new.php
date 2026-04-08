@@ -1,3 +1,4 @@
+<?php # Halaman untuk memasukkan penilaian mahasiswa ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

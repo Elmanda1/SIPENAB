@@ -6,26 +6,27 @@ use CodeIgniter\Database\Migration;
 
 class CreateMahasiswaTable extends Migration
 {
+    # Function yang berfungsi untuk membuat tabel mahasiswa beserta strukturnya
     public function up()
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'nim' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '20',
-                'unique'     => true,
+                'unique' => true,
             ],
             'nama' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
             'email' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
             'created_at' => [
@@ -41,6 +42,7 @@ class CreateMahasiswaTable extends Migration
         $this->forge->createTable('mahasiswa');
     }
 
+    # Function yang berfungsi untuk menghapus tabel mahasiswa jika migrasi di-rollback
     public function down()
     {
         $this->forge->dropTable('mahasiswa');

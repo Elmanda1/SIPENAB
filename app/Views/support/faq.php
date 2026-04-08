@@ -1,3 +1,4 @@
+<?php # Halaman pertanyaan yang sering diajukan ?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>

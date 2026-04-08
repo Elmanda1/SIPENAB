@@ -1,3 +1,4 @@
+<?php # Halaman untuk membuat mahasiswa baru ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

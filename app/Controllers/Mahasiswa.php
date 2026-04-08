@@ -10,6 +10,7 @@ class Mahasiswa extends BaseController
 {
     use ResponseTrait;
 
+    # Function yang berfungsi untuk menampilkan daftar keseluruhan data mahasiswa
     public function index()
     {
         $model = new MahasiswaModel();
@@ -42,6 +43,7 @@ class Mahasiswa extends BaseController
         return view('mahasiswa/index', $data);
     }
 
+    # Function yang berfungsi untuk menampilkan detail profil dari seorang mahasiswa secara spesifik
     public function show($id = null)
     {
         $model = new MahasiswaModel();
@@ -61,12 +63,14 @@ class Mahasiswa extends BaseController
         return view('mahasiswa/show', $data);
     }
 
+    # Function yang berfungsi untuk menampilkan form pengisian data mahasiswa baru
     public function new()
     {
         $data['title'] = 'Registrasi Kandidat';
         return view('mahasiswa/new', $data);
     }
 
+    # Function yang berfungsi untuk membuat mahasiswa baru
     public function create()
     {
         $model = new MahasiswaModel();
@@ -79,6 +83,7 @@ class Mahasiswa extends BaseController
         return redirect()->to('mahasiswa')->with('message', 'Record committed successfully');
     }
 
+    # Function yang berfungsi untuk menampilkan form edit untuk memperbarui profil mahasiswa
     public function edit($id = null)
     {
         $model = new MahasiswaModel();
@@ -90,6 +95,7 @@ class Mahasiswa extends BaseController
         return view('mahasiswa/edit', $data);
     }
 
+    # Function yang berfungsi untuk menyimpan perubahan data mahasiswa ke dalam sistem
     public function update($id = null)
     {
         $model = new MahasiswaModel();
@@ -105,6 +111,7 @@ class Mahasiswa extends BaseController
         return redirect()->to('mahasiswa')->with('message', 'Record updated successfully');
     }
 
+    # Function yang berfungsi untuk menghapus data mahasiswa secara spesifik
     public function delete($id = null)
     {
         $model = new MahasiswaModel();

@@ -1,3 +1,4 @@
+<?php # Halaman panduan penggunaan sistem ?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>

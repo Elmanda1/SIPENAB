@@ -1,3 +1,4 @@
+<?php # Layout utama untuk halaman administrator ?>
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
 
@@ -232,7 +233,7 @@
             padding: 0.85rem 1rem;
             border-radius: 16px;
             text-decoration: none;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             font-weight: 600;
             font-size: 0.95rem;
             transition: all 0.3s ease;
@@ -240,12 +241,15 @@
             z-index: 2;
             margin-bottom: 0.25rem;
         }
-        
+
         [data-theme="light"] .nav-item {
-            color: rgba(0,0,0,0.6);
+            color: rgba(0, 0, 0, 0.6);
         }
 
-        .nav-item i { font-size: 1.3rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .nav-item i {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
 
         /* Hover animation for icon only (color handled by .has-pill) */
         .nav-item:hover i {
@@ -256,13 +260,16 @@
         .nav-item.active {
             color: #fff;
         }
+
         .nav-item.active i {
             color: #fff;
         }
-        
+
         [data-theme="light"] .nav-item.active {
-            color: var(--accent); /* Ensure it's visible on white background */
+            color: var(--accent);
+            /* Ensure it's visible on white background */
         }
+
         [data-theme="light"] .nav-item.active i {
             color: var(--accent);
         }
@@ -271,6 +278,7 @@
         .nav-item.has-pill {
             color: #fff !important;
         }
+
         .nav-item.has-pill i {
             color: #fff !important;
         }
@@ -698,9 +706,10 @@
         const sidebarPill = document.getElementById('sidebarPill');
         const sidebarScroll = document.querySelector('.sidebar-scroll');
 
+        # Function yang berfungsi untuk memindahkan indikator pill menu secara dinamis
         function movePill(target) {
-            if(!sidebarPill || !target || !sidebarScroll) return;
-            
+            if (!sidebarPill || !target || !sidebarScroll) return;
+
             // Remove has-pill class from all nav-items
             document.querySelectorAll('.nav-item.has-pill').forEach(el => el.classList.remove('has-pill'));
             // Add has-pill to target to change its text color to white
@@ -731,7 +740,7 @@
         navItems.forEach(item => {
             item.addEventListener('mouseenter', () => movePill(item));
             item.addEventListener('mouseleave', () => {
-                if(activeItem) {
+                if (activeItem) {
                     movePill(activeItem);
                 } else {
                     sidebarPill.style.opacity = '0';
@@ -760,6 +769,7 @@
             updateIcon(newTheme);
         });
 
+        # Function yang berfungsi untuk mengubah ikon tema(bulan / matahari) saat berganti mode
         function updateIcon(theme) {
             themeIcon.className = theme === 'light' ? 'ti ti-sun' : 'ti ti-moon';
         }
@@ -771,6 +781,7 @@
         const globalModalIcon = document.getElementById('globalModalIcon');
         const globalModalBtn = document.getElementById('globalModalBtn');
 
+        # Function yang berfungsi untuk menampilkan modal box konfirmasi tindakan user
         function showConfirmModal(url, message = 'Apakah Anda yakin ingin melanjutkan?', title = 'Konfirmasi', icon = 'ti-question-mark') {
             globalModalTitle.innerText = title;
             globalModalMsg.innerText = message;
@@ -779,6 +790,7 @@
             globalModal.style.display = 'flex';
         }
 
+        # Function yang berfungsi untuk menyembunyikan modal box konfirmasi
         function hideConfirmModal() {
             globalModal.style.display = 'none';
         }

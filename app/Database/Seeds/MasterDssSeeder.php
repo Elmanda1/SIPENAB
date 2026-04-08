@@ -7,6 +7,7 @@ use App\Libraries\SAWCalculator;
 
 class MasterDssSeeder extends Seeder
 {
+    # Function yang berfungsi untuk memuat data master kriteria dan bobot awal ke sistem
     public function run()
     {
         // 0. Cleanup existing data
@@ -26,7 +27,7 @@ class MasterDssSeeder extends Seeder
             ['kode_kriteria' => 'C5', 'nama_kriteria' => 'Organisasi', 'bobot' => 0.10, 'tipe' => 'benefit'],
         ];
         $this->db->table('kriteria')->insertBatch($kData);
-        
+
         $kriteria = $this->db->table('kriteria')->get()->getResultArray();
         $kMap = [];
         foreach ($kriteria as $k) {
@@ -39,13 +40,13 @@ class MasterDssSeeder extends Seeder
         for ($i = 1; $i <= 100; $i++) {
             $nim = 2200 + $i;
             $mData[] = [
-                'nim'   => (string)$nim,
-                'nama'  => $faker->name,
+                'nim' => (string) $nim,
+                'nama' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
             ];
         }
         $this->db->table('mahasiswa')->insertBatch($mData);
-        
+
         $mahasiswa = $this->db->table('mahasiswa')->get()->getResultArray();
         $mIds = [];
         foreach ($mahasiswa as $m) {
@@ -55,11 +56,11 @@ class MasterDssSeeder extends Seeder
         // 3. Generate 500 Assessment Records (100 students x 5 criteria)
         $pData = [];
         $sawMatrix = [];
-        
+
         foreach ($mahasiswa as $m) {
             $nim = $m['nim'];
             $mId = $m['id'];
-            
+
             // Logic to create interesting clusters
             if ($nim % 10 == 0) { // The "Rich but Smart" outliers
                 $ipk = rand(380, 400) / 100;
@@ -89,7 +90,7 @@ class MasterDssSeeder extends Seeder
 
             $vals = [$ipk, $income, $dep, $prest, $org];
             $sawMatrix[$mId] = $vals;
-            
+
             $idx = 0;
             foreach (['C1', 'C2', 'C3', 'C4', 'C5'] as $kode) {
                 $pData[] = [
@@ -105,7 +106,7 @@ class MasterDssSeeder extends Seeder
         $saw = new SAWCalculator();
         $criteriaInfo = [];
         foreach ($kriteria as $k) {
-            $criteriaInfo[] = ['type' => $k['tipe'], 'weight' => (float)$k['bobot']];
+            $criteriaInfo[] = ['type' => $k['tipe'], 'weight' => (float) $k['bobot']];
         }
 
         $scores = $saw->calculateScores($sawMatrix, $criteriaInfo);
@@ -115,8 +116,8 @@ class MasterDssSeeder extends Seeder
         foreach ($ranked as $r) {
             $hData[] = [
                 'mahasiswa_id' => $r['id'],
-                'total_nilai'  => $r['score'],
-                'ranking'      => $r['rank']
+                'total_nilai' => $r['score'],
+                'ranking' => $r['rank']
             ];
         }
         $this->db->table('hasil')->insertBatch($hData);

@@ -1,3 +1,4 @@
+<?php # Halaman utama default CodeIgniter ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

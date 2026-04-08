@@ -1,3 +1,4 @@
+<?php # Halaman penjelasan metode SAW ?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>

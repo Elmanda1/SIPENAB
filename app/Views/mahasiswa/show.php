@@ -1,3 +1,4 @@
+<?php # Halaman detail data mahasiswa ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

@@ -8,6 +8,7 @@ use App\Models\KriteriaModel;
 
 class Dashboard extends BaseController
 {
+    # Function yang berfungsi untuk menampilkan halaman utama dashboard admin
     public function index()
     {
         $hasilModel = new HasilModel();
@@ -24,6 +25,7 @@ class Dashboard extends BaseController
         return view('dashboard/ranking', $data);
     }
 
+    # Function yang berfungsi untuk menampilkan halaman laporan statistik dan rekapitulasi data
     public function report()
     {
         $hasilModel = new HasilModel();

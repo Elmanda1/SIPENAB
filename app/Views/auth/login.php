@@ -1,3 +1,4 @@
+<?php # Halaman untuk masuk ke dalam sistem (login) ?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>

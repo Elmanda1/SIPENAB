@@ -1,3 +1,4 @@
+<?php # Layout utama untuk halaman publik ?>
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
 
@@ -235,7 +236,7 @@
             border-radius: 100px;
             z-index: 1;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--glass-border);
             opacity: 0;
             pointer-events: none;
@@ -577,16 +578,17 @@
     <script>
         // Universal Smooth Scroll for internal links
         document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+            # Logika untuk menangani efek smooth scrolling pada link internal(hash anchor)
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
-                
+
                 // Get the hash part
                 const hashIndex = href.indexOf('#');
                 if (hashIndex === -1) return;
-                
+
                 const hash = href.substring(hashIndex);
                 const path = href.substring(0, hashIndex);
-                
+
                 // Check if we are on the target page
                 const currentPath = window.location.pathname;
                 const targetPath = new URL(href, window.location.origin).pathname;
@@ -612,6 +614,7 @@
         const navContainer = document.getElementById('navLinks');
 
         if (navLinks.length > 0 && navPill) {
+            # Function yang berfungsi untuk memperbarui posisi indikator pill pada navbar
             function updatePill(target) {
                 const rect = target.getBoundingClientRect();
                 const containerRect = navContainer.getBoundingClientRect();
@@ -648,6 +651,7 @@
             updateIcon(newTheme);
         });
 
+        # Function yang berfungsi untuk menyesuaikan ikon tema aplikasi sesuai mode terpilih
         function updateIcon(theme) {
             if (theme === 'light') {
                 themeIcon.className = 'ti ti-sun';
@@ -663,6 +667,7 @@
         const globalModalIcon = document.getElementById('globalModalIcon');
         const globalModalBtn = document.getElementById('globalModalBtn');
 
+        # Function yang berfungsi untuk menampilkan pop - up konfirmasi tindakan pengguna
         function showConfirmModal(url, message = 'Apakah Anda yakin ingin melanjutkan?', title = 'Konfirmasi', icon = 'ti-question-mark') {
             globalModalTitle.innerText = title;
             globalModalMsg.innerText = message;
@@ -671,6 +676,7 @@
             globalModal.style.display = 'flex';
         }
 
+        # Function yang berfungsi untuk menutup pop - up konfirmasi yang sedang terbuka
         function hideConfirmModal() {
             globalModal.style.display = 'none';
         }

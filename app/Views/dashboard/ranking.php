@@ -1,3 +1,4 @@
+<?php # Halaman yang menampilkan hasil ranking beasiswa ?>
 <?= $this->extend('layout/admin') ?>
 
 <?= $this->section('content') ?>

@@ -1,3 +1,4 @@
+<?php # Halaman informasi kontak bantuan ?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('content') ?>

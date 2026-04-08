@@ -11,13 +11,14 @@ use App\Libraries\SAWCalculator;
 
 class Ranking extends BaseController
 {
+    # Function yang berfungsi untuk menghitung dan menampilkan peringkat hasil seleksi menggunakan metode SAW
     public function calculate()
     {
-        $kriteriaModel  = new KriteriaModel();
+        $kriteriaModel = new KriteriaModel();
         $mahasiswaModel = new MahasiswaModel();
         $penilaianModel = new PenilaianModel();
-        $hasilModel     = new HasilModel();
-        $calculator     = new SAWCalculator();
+        $hasilModel = new HasilModel();
+        $calculator = new SAWCalculator();
 
         // 1. Fetch Criteria
         $kriteria = $kriteriaModel->orderBy('id', 'ASC')->findAll();
@@ -39,21 +40,21 @@ class Ranking extends BaseController
             foreach ($kriteria as $k) {
                 $p = $penilaianModel->where([
                     'mahasiswa_id' => $mId,
-                    'kriteria_id'  => $k['id']
+                    'kriteria_id' => $k['id']
                 ])->first();
-                $row[] = $p ? (float)$p['nilai'] : 0;
+                $row[] = $p ? (float) $p['nilai'] : 0;
             }
             $matrix[$mId] = $row;
         }
 
         // 4. Format criteria for SAW
         $criteriaData = array_map(fn($k) => [
-            'type'   => $k['tipe'],
-            'weight' => (float)$k['bobot']
+            'type' => $k['tipe'],
+            'weight' => (float) $k['bobot']
         ], $kriteria);
 
         // 5. Run SAW
-        $scores        = $calculator->calculateScores($matrix, $criteriaData);
+        $scores = $calculator->calculateScores($matrix, $criteriaData);
         $rankedResults = $calculator->rank($scores);
 
         // 6. Save results
@@ -61,8 +62,8 @@ class Ranking extends BaseController
         foreach ($rankedResults as $res) {
             $hasilModel->insert([
                 'mahasiswa_id' => $res['id'],
-                'total_nilai'  => $res['score'],
-                'ranking'      => $res['rank']
+                'total_nilai' => $res['score'],
+                'ranking' => $res['rank']
             ]);
         }
 

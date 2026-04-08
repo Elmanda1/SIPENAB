@@ -6,32 +6,33 @@ use CodeIgniter\Database\Migration;
 
 class CreateKriteriaTable extends Migration
 {
+    # Function yang berfungsi untuk mendefinisikan dan membuat tabel kriteria penilaian
     public function up()
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'kode_kriteria' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '10',
-                'unique'     => true,
+                'unique' => true,
             ],
             'nama_kriteria' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
             'bobot' => [
-                'type'       => 'DECIMAL',
+                'type' => 'DECIMAL',
                 'constraint' => '5,2',
             ],
             'tipe' => [
-                'type'       => 'ENUM',
+                'type' => 'ENUM',
                 'constraint' => ['benefit', 'cost'],
-                'default'    => 'benefit',
+                'default' => 'benefit',
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -46,6 +47,7 @@ class CreateKriteriaTable extends Migration
         $this->forge->createTable('kriteria');
     }
 
+    # Function yang berfungsi untuk menghapus tabel kriteria dari database
     public function down()
     {
         $this->forge->dropTable('kriteria');

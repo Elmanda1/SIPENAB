@@ -1,3 +1,4 @@
+<?php # Komponen tabel penilaian ?>
 <div id="ajaxTableContainer">
     <div style="overflow-x: auto;">
         <table>

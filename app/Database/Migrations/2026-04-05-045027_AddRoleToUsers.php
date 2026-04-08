@@ -6,28 +6,29 @@ use CodeIgniter\Database\Migration;
 
 class AddRoleToUsers extends Migration
 {
+    # Function yang berfungsi untuk menambahkan kolom role ke dalam tabel users
     public function up()
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'username' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '50',
-                'unique'     => true,
+                'unique' => true,
             ],
             'password' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
             'role' => [
-                'type'       => 'ENUM',
+                'type' => 'ENUM',
                 'constraint' => ['admin', 'operator'],
-                'default'    => 'operator',
+                'default' => 'operator',
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -42,6 +43,7 @@ class AddRoleToUsers extends Migration
         $this->forge->createTable('users', true);
     }
 
+    # Function yang berfungsi untuk mencabut atau menghapus kolom role dari tabel users
     public function down()
     {
         $this->forge->dropTable('users', true);

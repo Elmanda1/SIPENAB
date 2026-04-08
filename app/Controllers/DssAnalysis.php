@@ -9,6 +9,7 @@ use App\Libraries\SAWCalculator;
 
 class DssAnalysis extends BaseController
 {
+    # Function yang berfungsi untuk melakukan dan menampilkan proses analisis DSS menggunakan SAW
     public function index()
     {
         $kModel = new KriteriaModel();
@@ -18,7 +19,7 @@ class DssAnalysis extends BaseController
 
         $kriteria = $kModel->findAll();
         $mahasiswa = $mModel->findAll();
-        
+
         if (empty($kriteria) || empty($mahasiswa)) {
             echo "Data kriteria atau mahasiswa kosong!\n";
             return;
@@ -37,7 +38,7 @@ class DssAnalysis extends BaseController
                         break;
                     }
                 }
-                $row[] = (float)$val;
+                $row[] = (float) $val;
             }
             $matrix[$m['id']] = $row;
         }
@@ -47,7 +48,7 @@ class DssAnalysis extends BaseController
         foreach ($kriteria as $k) {
             $criteriaInfo[] = [
                 'type' => $k['tipe'],
-                'weight' => (float)$k['bobot']
+                'weight' => (float) $k['bobot']
             ];
         }
 
