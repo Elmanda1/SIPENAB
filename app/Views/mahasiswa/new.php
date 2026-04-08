@@ -20,6 +20,17 @@
             <i class="ti ti-user-plus" style="color: var(--accent);"></i> Form Pendaftaran
         </h3>
 
+        <?php if (session()->getFlashdata('errors')): ?>
+            <div class="alert alert-error" data-aos="fade-down" style="padding: 1rem 1.25rem; border-radius: 16px; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.5rem; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);">
+                <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; font-weight: 600; font-size: 0.9rem;">
+                        <i class="ti ti-alert-triangle" style="font-size: 1.2rem;"></i>
+                        <span><?= esc($error) ?></span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
         <form action="<?= site_url('mahasiswa') ?>" method="POST">
             <div class="form-group" style="margin-bottom: 1.5rem;">
                 <label

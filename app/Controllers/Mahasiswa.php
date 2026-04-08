@@ -95,6 +95,9 @@ class Mahasiswa extends BaseController
         $model = new MahasiswaModel();
         $data = $this->request->getPost();
 
+        // Include ID in data for validation 'ignore' logic in the model
+        $data['id'] = $id;
+
         if (!$model->update($id, $data)) {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }
