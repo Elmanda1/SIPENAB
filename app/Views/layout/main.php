@@ -487,7 +487,7 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="<?= site_url('/') ?>" class="logo"><i class="ti ti-school"></i> SIPENAB<span>.</span></a>
+        <a href="<?= site_url('/') ?>" class="logo">SIPENAB<span>.</span></a>
 
         <div class="nav-links" id="navLinks">
             <div class="nav-pill" id="navPill"></div>
@@ -519,7 +519,7 @@
     <footer class="site-footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="<?= site_url('/') ?>" class="logo"><i class="ti ti-school"></i> SIPENAB<span>.</span></a>
+                <a href="<?= site_url('/') ?>" class="logo">SIPENAB<span>.</span></a>
                 <p>Sistem Pendukung Keputusan Pemilihan Beasiswa menggunakan algoritma <strong>Simple Additive Weighting
                         (SAW)</strong>. Transparan, cepat, dan presisi tinggi.</p>
             </div>

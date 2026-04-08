@@ -22,25 +22,18 @@ class Auth extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Basic verification (Hardcoded for demo, normally check against users table)
-        // Admin: admin / Boolean1193__
-        // Operator: operator / Boolean1193__
-        
-        $role = null;
-        if ($username === 'admin' && $password === 'Boolean1193__') {
-            $role = 'admin';
-        } elseif ($username === 'operator' && $password === 'Boolean1193__') {
-            $role = 'operator';
-        }
+        $db = \Config\Database::connect();
+        $user = $db->table('users')->where('username', $username)->get()->getRow();
 
-        if ($role) {
+        if ($user && password_verify($password, $user->password)) {
             session()->set([
-                'username' => $username,
-                'role' => $role,
+                'user_id' => $user->id,
+                'username' => $user->username,
+                'role' => $user->role,
                 'isLoggedIn' => true
             ]);
 
-            return redirect()->to('dashboard')->with('success', 'Berhasil login sebagai ' . $role);
+            return redirect()->to('dashboard')->with('success', 'Berhasil login sebagai ' . $user->role);
         }
 
         return redirect()->back()->with('error', 'Username atau password salah.');

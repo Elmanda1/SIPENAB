@@ -277,22 +277,22 @@
 
     .flow-step {
         display: grid;
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: 120px 1fr;
         gap: 2.5rem;
         margin-bottom: 4rem;
         position: relative;
     }
 
     .flow-icon {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         background: var(--glass-bg);
         border: 1px solid var(--glass-border);
-        border-radius: 28px;
+        border-radius: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2.5rem;
+        font-size: 5rem;
         color: var(--accent);
         position: relative;
         z-index: 2;
@@ -451,7 +451,7 @@
             Mulai Analisis <i class="ti ti-arrow-right"></i>
         </a>
         <a href="#methodology" class="btn premium-glass"
-            style="padding: 1.2rem 3rem; font-size: 1.1rem; border-radius: 20px; transition: transform 0.3s ease;">
+            style="padding: 1.2rem 3rem; font-size: 1.1rem; color: #ffffff; border-radius: 20px; transition: all 0.3s ease;">
             Lihat Metodologi
         </a>
     </div>
@@ -657,13 +657,12 @@
 
 <!-- METHODOLOGY SECTION -->
 <section id="methodology" style="margin-bottom: var(--section-spacing);">
-    <div class="section-title" data-aos="fade-up">
-        <div class="section-tag">Arsitektur Logika</div>
-        <h2>Alur Metodologi SAW<span>.</span></h2>
-        <p style="color: var(--text-muted);">Bagaimana data mentah dikonversi menjadi keputusan peringkat.</p>
-    </div>
-
     <div class="flow-container">
+        <div class="section-title" data-aos="fade-up" style="margin-bottom: 3rem;">
+            <div class="section-tag">Arsitektur Logika</div>
+            <h2>Alur Metodologi SAW<span>.</span></h2>
+            <p style="color: var(--text-muted);">Bagaimana data mentah dikonversi menjadi keputusan peringkat.</p>
+        </div>
         <!-- Step 1 -->
         <div class="flow-step" data-aos="fade-up">
             <div class="flow-icon"><i class="ti ti-list-numbers"></i></div>
@@ -677,7 +676,6 @@
                     <code>W = [w1, w2, w3, ..., wj]</code>
                 </div>
             </div>
-            <i class="ti ti-arrow-down arrow-indicator"></i>
         </div>
 
         <!-- Step 2 -->
@@ -699,7 +697,6 @@
                     </div>
                 </div>
             </div>
-            <i class="ti ti-arrow-down arrow-indicator"></i>
         </div>
 
         <!-- Step 3 -->
