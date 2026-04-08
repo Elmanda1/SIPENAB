@@ -13,6 +13,7 @@ class Mahasiswa extends BaseController
     public function index()
     {
         $model = new MahasiswaModel();
+        $search = $this->request->getGet('search');
 
         $allowedPerPage = [25, 50, 100];
         $perPage = (int) $this->request->getGet('limit') ?: 25;
@@ -20,10 +21,23 @@ class Mahasiswa extends BaseController
             $perPage = 25;
         }
 
+        if ($search) {
+            $model->groupStart()
+                ->like('nama', $search)
+                ->orLike('nim', $search)
+                ->orLike('email', $search)
+                ->groupEnd();
+        }
+
         $data['mahasiswa'] = $model->orderBy('nim', 'ASC')->paginate($perPage, 'default');
         $data['pager'] = $model->pager;
         $data['perPage'] = $perPage;
+        $data['search'] = $search;
         $data['title'] = 'Data Mahasiswa';
+
+        if ($this->request->isAJAX()) {
+            return view('mahasiswa/table_partial', $data);
+        }
 
         return view('mahasiswa/index', $data);
     }

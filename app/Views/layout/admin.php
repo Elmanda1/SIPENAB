@@ -569,7 +569,6 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-icon"><i class="ti ti-school"></i></div>
             <div>
                 <div class="logo-text">SIPENAB<span style="color: var(--accent)">.</span></div>
                 <div

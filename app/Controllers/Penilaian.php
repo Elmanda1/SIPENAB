@@ -13,6 +13,7 @@ class Penilaian extends BaseController
     {
         $mahasiswaModel = new MahasiswaModel();
         $penilaianModel = new PenilaianModel();
+        $search = $this->request->getGet('search');
 
         $allowedPerPage = [25, 50, 100];
         $perPage = (int) $this->request->getGet('limit') ?: 25;
@@ -20,9 +21,18 @@ class Penilaian extends BaseController
             $perPage = 25;
         }
 
+        if ($search) {
+            $mahasiswaModel->groupStart()
+                ->like('nama', $search)
+                ->orLike('nim', $search)
+                ->orLike('email', $search)
+                ->groupEnd();
+        }
+
         $data['mahasiswa'] = $mahasiswaModel->orderBy('nim', 'ASC')->paginate($perPage, 'default');
         $data['pager'] = $mahasiswaModel->pager;
         $data['perPage'] = $perPage;
+        $data['search'] = $search;
 
         $studentIds = array_column($data['mahasiswa'], 'id');
         $evaluations = [];
@@ -39,6 +49,11 @@ class Penilaian extends BaseController
         }
 
         $data['title'] = 'Matriks Penilaian';
+
+        if ($this->request->isAJAX()) {
+            return view('penilaian/table_partial', $data);
+        }
+
         return view('penilaian/index', $data);
     }
 
