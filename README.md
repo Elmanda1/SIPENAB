@@ -1,69 +1,231 @@
-# CodeIgniter 4 Application Starter
+<p align="center">
+  <img src="docs/Sipenab%20(2).png" alt="SIPENAB Landing Page" width="800">
+</p>
 
-## What is CodeIgniter?
+<h1 align="center">SIPENAB</h1>
+<h3 align="center">Sistem Pendukung Keputusan Pemilihan Beasiswa</h3>
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+<p align="center">
+  <strong>Presisi dalam Setiap Keputusan</strong><br>
+  Sistem berbasis algoritma <em>Simple Additive Weighting (SAW)</em> untuk seleksi beasiswa yang transparan, cepat, dan akurat.
+</p>
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php" alt="PHP">
+  <img src="https://img.shields.io/badge/CodeIgniter-4.7-EF4223?style=flat&logo=codeigniter" alt="CodeIgniter">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite" alt="SQLite">
+  <img src="https://img.shields.io/badge/SAW-Algorithm-00B4D8?style=flat" alt="SAW">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+</p>
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+---
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+## 📋 Daftar Isi
 
-## Installation & updates
+- [Tentang SIPENAB](#tentang-sipenab)
+- [Fitur Utama](#fitur-utama)
+- [Alur Aplikasi](#alur-aplikasi)
+- [Teknologi](#teknologi)
+- [Screenshot](#screenshot)
+- [Instalasi](#instalasi)
+- [Penggunaan](#penggunaan)
+- [Lisensi](#lisensi)
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+---
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## 🎯 Tentang SIPENAB
 
-## Setup
+**SIPENAB** adalah Sistem Pendukung Keputusan (SPK) yang dirancang untuk membantu institusi dalam menyeleksi penerima beasiswa secara objektif. Menggunakan algoritma **Simple Additive Weighting (SAW)** — metode Multi-Attribute Decision Making (MADM) yang terstandarisasi — SIPENAB mentransformasi data kandidat menjadi peringkat berbobot yang transparan dan dapat dipertanggungjawabkan.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+**Mengapa SAW?** Metode ini dipilih karena kesederhanaannya, kecepatan kalkulasi (<1ms), dan kemampuannya menangani kriteria benefit/cost secara simultan.
 
-## Important Change with index.php
+---
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## ✨ Fitur Utama
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+| Fitur | Deskripsi |
+|---|---|
+| **SAW Algorithm Engine** | Normalisasi & kalkulasi skor otomatis (benefit/cost) |
+| **Manajemen Mahasiswa** | CRUD data kandidat (100+ entri) |
+| **Manajemen Kriteria** | Bobot & tipe (benefit/cost) fleksibel: C1–C5 |
+| **Input Penilaian** | Form evaluasi per kandidat per metrik |
+| **Ranking Otomatis** | Peringkat lengkap dengan skor SAW |
+| **Telemetri** | Panel statistik: total evaluasi, metode, distribusi |
+| **Grafik Radar** | Visualisasi distribusi bobot kriteria |
+| **Dark/Light Mode** | Toggle tema yang persist di localStorage |
+| **Role-Based Access** | Dua role: `admin` & `operator` |
+| **Laporan Cetak** | Halaman report ranking siap print |
 
-**Please** read the user guide for a better explanation of how CI4 works!
+---
 
-## Repository Management
+## 🔄 Alur Aplikasi
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```
+Landing Page → Login → Dashboard (Ranking SAW)
+                ↓
+          Data Mahasiswa → Input Penilaian / Matriks → Bobot Kriteria
+                ↓
+          Evaluasi Kandidat → Hasil Ranking SAW
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+---
 
-## Server Requirements
+## 🖼️ Screenshot
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+### Halaman Depan
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+<p align="center">
+  <img src="docs/Sipenab%20(2).png" alt="Landing Page" width="700">
+  <br>
+  <em>Landing page / Beranda — tagline "Presisi dalam Setiap Keputusan", deskripsi sistem berbasis algoritma SAW, tombol "Mulai Analisis" & "Lihat Metodologi", serta statistik: 100% Transparansi Data, <1ms Waktu Kalkulasi, SAW Standar Algoritma.</em>
+</p>
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+### Autentikasi
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+<p align="center">
+  <img src="docs/Sipenab%20(8).png" alt="Halaman Login" width="700">
+  <br>
+  <em>Halaman login "Gerbang Kendali SIPENAB" dengan form username & password, tersedia untuk role admin dan operator.</em>
+</p>
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+### Dashboard — Ranking SAW
+
+<p align="center">
+  <img src="docs/Sipenab%20(3).png" alt="Ranking SAW Dark Mode" width="700">
+  <br>
+  <em>Halaman "Keputusan SAW" / Ranking SAW (dark mode). Menampilkan kandidat peringkat #1 (Lasmono Baktiadi Narpati, skor SAW 0.8095), daftar peringkat lengkap #2–#06, panel Telemetri (total evaluasi 100, metode SAW), dan grafik radar Distribusi Bobot kriteria (C1–C5).</em>
+</p>
+
+<p align="center">
+  <img src="docs/Sipenab%20(9).png" alt="Ranking SAW Light Mode" width="700">
+  <br>
+  <em>Halaman Ranking SAW versi light mode, login sebagai "operator" dengan notifikasi sukses "Berhasil login sebagai operator".</em>
+</p>
+
+### Data Mahasiswa
+
+<p align="center">
+  <img src="docs/Sipenab%20(4).png" alt="Data Mahasiswa Dark Mode" width="700">
+  <br>
+  <em>Halaman "Data Mahasiswa" (dark mode). Tabel daftar register kandidat beasiswa (NIM, nama, email), total 100 kandidat, dengan tombol aksi edit/hapus dan "Tambah Kandidat".</em>
+</p>
+
+<p align="center">
+  <img src="docs/Sipenab%20(10).png" alt="Data Mahasiswa Light Mode" width="700">
+  <br>
+  <em>Halaman Data Mahasiswa versi light mode, login sebagai operator.</em>
+</p>
+
+### Matriks Penilaian
+
+<p align="center">
+  <img src="docs/Sipenab%20(5).png" alt="Matriks Penilaian Dark Mode" width="700">
+  <br>
+  <em>Halaman "Matriks Penilaian" / Input Penilaian (dark mode). Rekapitulasi status evaluasi tiap kandidat — semua tercatat "5 Metrik", dengan tombol "Perbarui Matriks".</em>
+</p>
+
+<p align="center">
+  <img src="docs/Sipenab%20(1).png" alt="Matriks Penilaian Light Mode" width="700">
+  <br>
+  <em>Halaman Matriks Penilaian versi light mode, login sebagai operator.</em>
+</p>
+
+### Evaluasi Kandidat
+
+<p align="center">
+  <img src="docs/Sipenab%20(6).png" alt="Evaluasi Kandidat" width="700">
+  <br>
+  <em>Halaman "Evaluasi Kandidat" — form input penilaian per kriteria (C1 IPK, C2 Penghasilan Ortu, C3 Jumlah Tanggungan, C4 Prestasi, C5 Organisasi) untuk kandidat Michelle Yuliana Suryatmi.</em>
+</p>
+
+### Bobot Kriteria
+
+<p align="center">
+  <img src="docs/Sipenab%20(7).png" alt="Data Kriteria" width="700">
+  <br>
+  <em>Halaman "Data Kriteria" / Bobot Kriteria. Tabel 5 kriteria SAW beserta bobot dan tipe (benefit/cost): C1 IPK (0.3, benefit), C2 Penghasilan Ortu (0.25, cost), C3 Tanggungan (0.15, benefit), C4 Prestasi (0.2, benefit), C5 Organisasi (0.1, benefit).</em>
+</p>
+
+---
+
+## 🛠️ Teknologi
+
+- **PHP 8.2+** — Bahasa pemrograman backend
+- **CodeIgniter 4** — Framework PHP full-stack
+- **SQLite3** — Database ringan tanpa konfigurasi
+- **Chart.js** — Visualisasi grafik radar
+- **Tabler Icons** — Ikon UI modern
+- **AOS (Animate on Scroll)** — Animasi scroll
+- **Glassmorphism CSS** — Desain UI kontemporer
+
+---
+
+## ⚙️ Instalasi
+
+### Prasyarat
+
+- PHP 8.2 atau lebih tinggi
+- Composer
+- Ekstensi PHP: `intl`, `mbstring`, `sqlite3`, `json`
+
+### Langkah Instalasi
+
+```bash
+# Clone repositori
+git clone https://github.com/username/sipenab.git
+cd sipenab
+
+# Install dependensi
+composer install
+
+# Copy environment
+cp env .env
+
+# Edit .env — sesuaikan baseURL
+# app.baseURL = 'http://localhost:8080'
+
+# Jalankan migrasi & seeder
+php spark migrate --all
+php spark db:seed UserSeeder
+php spark db:seed MasterDssSeeder
+
+# Jalankan server development
+php spark serve
+```
+
+### Default Akun
+
+| Role | Username | Password |
+|---|---|---|
+| Admin | `admin` | admin123 |
+| Operator | `operator` | operator123 |
+
+---
+
+## 🚀 Pengembangan
+
+```bash
+# Menambahkan migration baru
+php spark make:migration NamaMigration
+
+# Menambahkan seeder
+php spark make:seeder NamaSeeder
+
+# Menjalankan semua seeder
+php spark db:seed NamaSeeder
+
+# Menghitung ulang ranking SAW (CLI)
+php spark dss:analyze
+```
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah **MIT License** — milik **SITOPSI**. Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
+
+---
+
+<p align="center">
+  Dibuat dengan ❤️ oleh <strong>SITOPSI</strong> — <em>Presisi dalam Setiap Keputusan</em>
+</p>

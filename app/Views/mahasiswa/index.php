@@ -47,7 +47,7 @@
 </div>
 
 <script>
-    # Logika untuk inisialisasi elemen dan filter pada halaman daftar mahasiswa
+    // Inisialisasi elemen dan filter pada halaman daftar mahasiswa
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('liveSearchInput');
         const container = document.getElementById('ajaxTableContainer');
@@ -55,7 +55,7 @@
         const limitSelect = document.querySelector('select[name="limit"]');
         let debounceTimer;
 
-        # Logika untuk memproses input pencarian dengan jeda waktu(debounce)
+        // Proses input pencarian dengan jeda waktu (debounce)
         searchInput.addEventListener('input', function () {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
@@ -63,7 +63,7 @@
             }, 300);
         });
 
-        # Function yang berfungsi untuk mengambil data mahasiswa secara real - time via AJAX
+        // Ambil data mahasiswa secara real-time via AJAX
         async function performSearch() {
             const query = searchInput.value;
             const limit = limitSelect.value;

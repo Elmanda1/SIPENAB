@@ -45,7 +45,7 @@
 </div>
 
 <script>
-    # Logika untuk inisialisasi elemen dan variabel setelah dokumen selesai dimuat
+    // Inisialisasi elemen dan variabel setelah dokumen selesai dimuat
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('liveSearchInput');
         const container = document.getElementById('ajaxTableContainer');
@@ -53,7 +53,7 @@
         const limitSelect = document.querySelector('select[name="limit"]');
         let debounceTimer;
 
-        # Logika untuk mendeteksi input pencarian dengan metode debounce
+        // Deteksi input pencarian dengan metode debounce
         searchInput.addEventListener('input', function () {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
@@ -61,7 +61,7 @@
             }, 300);
         });
 
-        # Function yang berfungsi untuk mengambil data hasil pencarian secara asinkron(AJAX)
+        // Ambil data hasil pencarian secara asinkron (AJAX)
         async function performSearch() {
             const query = searchInput.value;
             const limit = limitSelect.value;

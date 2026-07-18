@@ -12,14 +12,10 @@ class CreateHasilTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'mahasiswa_id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
             ],
             'total_nilai' => [
                 'type' => 'DECIMAL',
@@ -27,7 +23,6 @@ class CreateHasilTable extends Migration
             ],
             'ranking' => [
                 'type' => 'INT',
-                'constraint' => 11,
                 'null' => true,
             ],
             'created_at' => [

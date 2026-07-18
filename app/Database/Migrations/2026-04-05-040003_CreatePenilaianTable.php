@@ -12,19 +12,13 @@ class CreatePenilaianTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'mahasiswa_id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
             ],
             'kriteria_id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
             ],
             'nilai' => [
                 'type' => 'DECIMAL',

@@ -706,7 +706,7 @@
         const sidebarPill = document.getElementById('sidebarPill');
         const sidebarScroll = document.querySelector('.sidebar-scroll');
 
-        # Function yang berfungsi untuk memindahkan indikator pill menu secara dinamis
+        // Function untuk memindahkan indikator pill menu secara dinamis
         function movePill(target) {
             if (!sidebarPill || !target || !sidebarScroll) return;
 
@@ -769,7 +769,7 @@
             updateIcon(newTheme);
         });
 
-        # Function yang berfungsi untuk mengubah ikon tema(bulan / matahari) saat berganti mode
+        // Function untuk mengubah ikon tema saat berganti mode
         function updateIcon(theme) {
             themeIcon.className = theme === 'light' ? 'ti ti-sun' : 'ti ti-moon';
         }
@@ -781,7 +781,7 @@
         const globalModalIcon = document.getElementById('globalModalIcon');
         const globalModalBtn = document.getElementById('globalModalBtn');
 
-        # Function yang berfungsi untuk menampilkan modal box konfirmasi tindakan user
+        // Function untuk menampilkan modal box konfirmasi
         function showConfirmModal(url, message = 'Apakah Anda yakin ingin melanjutkan?', title = 'Konfirmasi', icon = 'ti-question-mark') {
             globalModalTitle.innerText = title;
             globalModalMsg.innerText = message;
@@ -790,7 +790,7 @@
             globalModal.style.display = 'flex';
         }
 
-        # Function yang berfungsi untuk menyembunyikan modal box konfirmasi
+        // Function untuk menyembunyikan modal box konfirmasi
         function hideConfirmModal() {
             globalModal.style.display = 'none';
         }

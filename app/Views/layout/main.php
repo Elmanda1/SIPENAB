@@ -578,7 +578,7 @@
     <script>
         // Universal Smooth Scroll for internal links
         document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-            # Logika untuk menangani efek smooth scrolling pada link internal(hash anchor)
+            // Logika untuk menangani efek smooth scrolling pada link internal (hash anchor)
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
 
@@ -614,7 +614,7 @@
         const navContainer = document.getElementById('navLinks');
 
         if (navLinks.length > 0 && navPill) {
-            # Function yang berfungsi untuk memperbarui posisi indikator pill pada navbar
+            // Function untuk memperbarui posisi indikator pill pada navbar
             function updatePill(target) {
                 const rect = target.getBoundingClientRect();
                 const containerRect = navContainer.getBoundingClientRect();
@@ -651,7 +651,7 @@
             updateIcon(newTheme);
         });
 
-        # Function yang berfungsi untuk menyesuaikan ikon tema aplikasi sesuai mode terpilih
+        // Function untuk menyesuaikan ikon tema sesuai mode terpilih
         function updateIcon(theme) {
             if (theme === 'light') {
                 themeIcon.className = 'ti ti-sun';
@@ -667,7 +667,7 @@
         const globalModalIcon = document.getElementById('globalModalIcon');
         const globalModalBtn = document.getElementById('globalModalBtn');
 
-        # Function yang berfungsi untuk menampilkan pop - up konfirmasi tindakan pengguna
+        // Function untuk menampilkan pop-up konfirmasi tindakan pengguna
         function showConfirmModal(url, message = 'Apakah Anda yakin ingin melanjutkan?', title = 'Konfirmasi', icon = 'ti-question-mark') {
             globalModalTitle.innerText = title;
             globalModalMsg.innerText = message;
@@ -676,7 +676,7 @@
             globalModal.style.display = 'flex';
         }
 
-        # Function yang berfungsi untuk menutup pop - up konfirmasi yang sedang terbuka
+        // Function untuk menutup pop-up konfirmasi yang sedang terbuka
         function hideConfirmModal() {
             globalModal.style.display = 'none';
         }

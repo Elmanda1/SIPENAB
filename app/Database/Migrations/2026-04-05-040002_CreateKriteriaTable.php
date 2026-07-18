@@ -12,8 +12,6 @@ class CreateKriteriaTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'kode_kriteria' => [
@@ -30,8 +28,8 @@ class CreateKriteriaTable extends Migration
                 'constraint' => '5,2',
             ],
             'tipe' => [
-                'type' => 'ENUM',
-                'constraint' => ['benefit', 'cost'],
+                'type' => 'VARCHAR',
+                'constraint' => '10',
                 'default' => 'benefit',
             ],
             'created_at' => [

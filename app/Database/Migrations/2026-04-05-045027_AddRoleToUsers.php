@@ -12,8 +12,6 @@ class AddRoleToUsers extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'username' => [
@@ -26,8 +24,8 @@ class AddRoleToUsers extends Migration
                 'constraint' => '255',
             ],
             'role' => [
-                'type' => 'ENUM',
-                'constraint' => ['admin', 'operator'],
+                'type' => 'VARCHAR',
+                'constraint' => '10',
                 'default' => 'operator',
             ],
             'created_at' => [

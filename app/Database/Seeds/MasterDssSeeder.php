@@ -11,12 +11,12 @@ class MasterDssSeeder extends Seeder
     public function run()
     {
         // 0. Cleanup existing data
-        $this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+        $this->db->query('PRAGMA foreign_keys = OFF');
         $this->db->table('hasil')->truncate();
         $this->db->table('penilaian')->truncate();
         $this->db->table('kriteria')->truncate();
         $this->db->table('mahasiswa')->truncate();
-        $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+        $this->db->query('PRAGMA foreign_keys = ON');
 
         // 1. Setup Criteria
         $kData = [
